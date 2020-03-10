@@ -1,2 +1,2 @@
-# procesos_estocasticos
-Notas de curso
+# Procesos Estocasticos
+Este repositorio contiene las notas de curso de procesos además de las tareas del mismo.
