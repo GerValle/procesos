@@ -1,0 +1,92 @@
+\documentclass{report}
+    \usepackage[utf8]{inputenc}
+    \usepackage[spanish]{babel}
+    \usepackage{amsmath}
+    \usepackage{graphics}
+    \usepackage{amssymb}
+    \setlength{\oddsidemargin}{0.5cm}
+    \setlength{\evensidemargin}{0.5cm}
+    \setlength{\textwidth}{15cm}
+    \setlength{\topmargin}{-2cm}
+\begin{document}
+\begin{center}
+    \textsf{\Large Procesos Estocásticos}
+    \par\medskip
+    \textsf{\large Tarea 2}
+    \end{center}
+    \hrule
+    \par\bigskip
+
+De los problemas a continuación, deberás entregar los problemas 2, 3, 4, 6 y 8.
+\begin{enumerate}
+    \item Sea $\left\{X_n\right\}$ una cadena de Markov con espacio de estados $S = \left\{1,2,3\right\}$ y matriz de transición:
+    $$P= \left[
+        \begin{matrix}
+            0.6 & & 0.3 & 0.1 \\
+            0.3 & & 0.3 & 0.4 \\
+            0.4 & & 0.1 & 0.5 \\
+        \end{matrix}
+        \right]
+    $$
+
+Si se sabe que el proceso empieza en $X_0=1$, determina la probabilidad $P\left(X_0=1,X_1=0, X_2 = 2 \right)$.
+\item Considera el problema de enviar un mensaje binario 0,1, a través de un canal de señales que consiste de varias estaciones, donde la transmisión a través de cada estación esta sujeta a una probabilidad fija $\alpha$ de error. Supongamos que $X_0=0$ y que $X_n$ es la señal recibida en la estación $n$.  Supongamos que $X_n$ es una cadena de Markov con probabilidades de transición $P(0,0) = P(1,1)= 1-\alpha$ y $P(0,1)=P(1,0)= \alpha$, con $0<\alpha<1$.
+\begin{enumerate}
+    \item Determina la probabilidad $P\left(X_0=0,X_1=0, X_2=0\right)$
+    \item Determina la probabilidad de que la señal recibida en la estacion 2 sea correcta.
+\end{enumerate}
+\item Las variables aleatorias $\xi_1, \xi_2, \ldots$ son independientes distribuidas:
+$$
+P\left(X_n=k\right)=
+\begin{cases}
+    0.1 \text{ si } k = 0 \\
+    0.3 \text{ si } k = 1 \\
+    0.2 \text{ si } k = 2 \\
+    0.4 \text{ si } k = 3
+\end{cases}
+$$
+Sea $X_0=0$, y sea $X_n= max\left\{\xi_1, \ldots,\xi_n\right\}$ el $\xi$ máximo observado hasta la fecha. Demuestra que $\left\{X_n\right\}$ es una cadena de Markov y determina la matriz de transición.
+\item Sea $\left\{X_n\right\}$ una cadena de Markov con espacio de estados $S = \left\{0,1,2\right\}$ y matriz de transición:
+$$P= \left[
+    \begin{matrix}
+        0.1 & & 0.2 & 0.7 \\
+        0.2 & & 0.2 & 0.6 \\
+        0.6 & & 0.1 & 0.3 \\
+    \end{matrix}
+    \right]
+$$
+\begin{enumerate}
+    \item Calcula la matriz de transición $P^{(2)}$ en dos pasos.
+    \item Calcula: $P\left(\left. X_3 = 1\right\vert X_1=0\right)$
+    \item Calcula: $P\left(\left. X_3 = 1\right\vert X_0=0\right)$
+\end{enumerate}
+\item Sea $\left\{X_n\right\}$ una cadena de Markov con matriz de transición:
+$$P= \left[
+    \begin{matrix}
+        0.6 & & 0.3 & 0.1 \\
+        0.3 & & 0.3 & 0.4 \\
+        0.4 & & 0.1 & 0.5 \\
+    \end{matrix}
+    \right]
+$$
+Si se sabe que $X_0=1$, determina $P(X_2 = 1)$.
+\item Supongamos que $\left\{X_n\right\}$ es una cadena de Markov con dos estados y matriz de transición:
+$$P= \left[
+    \begin{matrix}
+        \alpha & 1-\alpha \\
+        1-\beta & \beta \\
+    \end{matrix}
+    \right]
+$$
+Demuestra que el proceso $\left\{Z_n\right\}= (X_{n-1}, X_n)$ con estados $(0,0)$, $(0,1)$, $(1,0)$, $(1,1)$, es una cadena de Markov. Determian su matriz de transición.
+\item Sea $\left\{X_n\right\}$ una cadena de Markov. Muestra que
+$$
+P\left(\left.X_0=x_0\right\vert X_1 = x_1, \ldots, X_n = x_n\right) = P\left(\left. X_0=x_0 \right\vert X_1 = x_1\right)
+$$
+\item Sea $\left\{X_n\right\}$ una cadena de Markov. Muestra que
+$$
+P\left(\left.X_{n+m}=x_{n+m}, \ldots, X_{n+1} = x_{n+1}\right\vert X_n = x_n\right) = P\left(\left.X_{m}=x_{n+m}, \ldots, X_{1} = x_{n+1}\right\vert X_0 = x_n\right)
+$$
+\end{enumerate}
+
+\end{document}
