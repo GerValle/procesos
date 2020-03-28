@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>T1</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href=" root.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<p><span class="sans-serif">Procesos Estocásticos</span></p>
+
+<p><span class="sans-serif">Tarea 1</span></p>
+<hr />
+
+<p>De los problemas siguientes debes entrgar los problemas 2, 3, 11, 12, 14, 15, 16 y 18. Sin embargo es altamente recomendable que intentes resolverlos todos.</p>
+<ol>
+<li><p>Sea <span class="math inline">\(X_n\)</span> con <span class="math inline">\(n\geq 0\)</span> la cadena de Markov de dos estados. Encuentra:</p>
+<ol>
+<li><p><span class="math inline">\(P\left(\left. x_1=0\right\vert X_0=0, X_2=0\right)\)</span></p></li>
+<li><p><span class="math inline">\(P\left(X_1\neq X_2\right)\)</span></p></li>
+</ol></li>
+<li><p>Supongamos que tenemos dos cajas con <span class="math inline">\(2d\)</span> bolas, de las cuales <span class="math inline">\(d\)</span> son negras y <span class="math inline">\(d\)</span> son rojas. Inicialmente <span class="math inline">\(d\)</span> bolas son colocadas en la caja 1 y el resto en la caja 2. En cada intento una bola es seleccionada de cada caja aleatoriamente y es cambiada de caja. Sea <span class="math inline">\(X_0\)</span> el número de bolas blancas que inicialmente se encuentran en la caja 1 y <span class="math inline">\(X_n\)</span> el número de bolas negras en la caja uno después de <span class="math inline">\(n\)</span> extracciones. Encuentra la probabilidad de transición de la cadena de Markov <span class="math inline">\(\left\{X_n\right\}\)</span>.</p></li>
+<li><p>Sea <span class="math inline">\(\left(\Omega, \mathcal{F}, P\right)\)</span> un espacio de probabilidad. Si todos los conjuntos a continuación estan en <span class="math inline">\(\mathcal{F}\)</span>, prueba:</p>
+<ol>
+<li><p>Si <span class="math inline">\(\left\{D_i\right\}\)</span> es una sucesión de disjuntos, y <span class="math inline">\(P(\left.C\right\vert D_i)=p\)</span> entonces: <span class="math inline">\(P\left(\left. C \right\vert \cup_i D_i\right)=p\)</span>.</p></li>
+<li><p>Si <span class="math inline">\(\left\{C_i\right\}\)</span> es una sucesión de disjuntos, entonces <span class="math inline">\(P\left(\left.\cup C_i\right\vert D\right)= \sum P\left(\left.C_i\right\vert D\right)\)</span>.</p></li>
+<li><p>Si <span class="math inline">\(\left\{E_i\right\}\)</span> es una sucesión de disjuntos tales que <span class="math inline">\(\cup E_i = \Omega\)</span>, entonces: <span class="math display">\[P\left(\left.C\right\vert D \right)= \sum P\left(\left.E_i\right\vert D\right)P\left(\left. C\right\vert E_i\cap D\right).\]</span></p></li>
+<li><p>Si <span class="math inline">\(\left\{C_i\right\}\)</span> es una sucesión de disjuntos y <span class="math inline">\(P\left(\left. A\right\vert C_i\right) = P\left(\left. B\right\vert C_i\right)\)</span> para todo <span class="math inline">\(i\)</span>, entonces <span class="math inline">\(P\left(\left. A\right\vert \cup C_i\right) = P\left(\left. B\right\vert \cup C_i\right)\)</span></p></li>
+</ol></li>
+<li><p>Sea <span class="math inline">\(\left\{X_n\right\}\)</span> una cadana de Ehrenfest y Supongamos que <span class="math inline">\(X_0\)</span> tiene una distribución binomial con parámetros <span class="math inline">\(n\)</span> y <span class="math inline">\(1/2\)</span>, es decir: <span class="math display">\[P\left(X_0= x\right) = \binom{n}{x}\frac{1}{2^d}\]</span> Encuentra la distribución de <span class="math inline">\(X_1\)</span>.</p></li>
+<li><p>Demuestra que la cadena de Ehrenfest efectivamente cumple la propiedad de Markov.</p></li>
+<li><p>Demuestra que la caminata aleatoria es una cadena de Markov.</p></li>
+<li><p>Demuestra que la cadena de la ruina de jugador efectivamente es una cadena de Markov.</p></li>
+<li><p>Escribe la matriz de transición de la cadena de Ehrenfest si d = 7. Dibuja también la gráfica correspondiente.</p></li>
+<li><p>Escribe la matriz de transición para la cadena de la ruina del jugador si es que suponemos entre los dos jugadores hay $7 en juego y la probabilidad de ganar del jugador 1 es de <span class="math inline">\(p = 0.4\)</span>. Dibuja, también la gráfica de la matriz</p></li>
+<li><p>La cadena de Markov <span class="math inline">\(\left\{X_n\right\}\)</span> con estados 0, 1, 2 tiene la matriz de transición: <span class="math display">\[P= \left[
+                  \begin{matrix}
+                      0.1 &amp;  &amp; 0.2 &amp; 0.7 \\
+                      0.9 &amp;  &amp; 0.1 &amp; 0   \\
+                      0.1 &amp;  &amp; 0.8 &amp; 0.1 \\
+                  \end{matrix}
+                  \right]\]</span> y distribución inicial <span class="math inline">\(\pi_0= (0.3, 0.4, 0.3)\)</span>. Determina <span class="math inline">\(P\left(X_0=0, X_1 = 1 X_2 = 2\right)\)</span>.</p></li>
+<li><p>La cadena de Markov <span class="math inline">\(\left\{X_n\right\}\)</span> con estados 0, 1, 2 tiene la matriz de transición: <span class="math display">\[P= \left[
+                  \begin{matrix}
+                      0.1 &amp;  &amp; 0.1 &amp; 0.8 \\
+                      0.2 &amp;  &amp; 0.2 &amp; 0.6 \\
+                      0.3 &amp;  &amp; 0.3 &amp; 0.4 \\
+                  \end{matrix}
+                  \right]\]</span> Determina las probabilidades: <span class="math display">\[P\left(\left. X_1=1, X_2 = 1 \right\vert  X_0 = 0\right) \textrm{ y } P\left(\left. X_2=1, X_3 = 1 \right\vert  X_1 = 0\right)\]</span>.</p></li>
+<li><p>Un modelo simplificado de transmisión de enfermedades, funciona como sigue: El total de la población es <span class="math inline">\(N=5\)</span>, de los cuales algunos estan enfermos y otros saludables. En cada periodo, son seleccionados dos individuos aleatoriamente e interactúan. Si un individuo se encuentra enfermo y el otro no, entonces el individuo saludable se enferma con probabilidad 0.1. En otro caso, no se da transmisión de la enfermedad. Sea <span class="math inline">\(X_n\)</span> el número de individuos enfermos al tiempo <span class="math inline">\(n\)</span>. Determina la matriz de transición de este proceso.</p></li>
+<li><p>Sea <span class="math inline">\(\left\{X_n\right\}\)</span> una cadena de Markov con espacio de estados <span class="math inline">\(S = \left\{1,2,3\right\}\)</span> y matriz de transición: <span class="math display">\[P= \left[
+                  \begin{matrix}
+                      0.6 &amp;  &amp; 0.3 &amp; 0.1 \\
+                      0.3 &amp;  &amp; 0.3 &amp; 0.4 \\
+                      0.4 &amp;  &amp; 0.1 &amp; 0.5 \\
+                  \end{matrix}
+                  \right]\]</span></p>
+<p>Si se sabe que el proceso empieza en <span class="math inline">\(X_0=1\)</span>, determina la probabilidad: <span class="math display">\[P\left(X_0=1,X_1=0, X_2 = 2 \right)\]</span>.</p></li>
+<li><p>Considera el problema de enviar un mensaje binario 0,1, a través de un canal de señales que consiste de varias estaciones, donde la transmisión a través de cada estación esta sujeta a una probabilidad fija <span class="math inline">\(\alpha\)</span> de error. Supongamos que <span class="math inline">\(X_0=0\)</span> y que <span class="math inline">\(X_n\)</span> es la señal recibida en la estación <span class="math inline">\(n\)</span>. Supongamos que <span class="math inline">\(X_n\)</span> es una cadena de Markov con probabilidades de transición <span class="math inline">\(P(0,0) = P(1,1)= 1-\alpha\)</span> y <span class="math inline">\(P(0,1)=P(1,0)= \alpha\)</span>, con <span class="math inline">\(0&lt;\alpha&lt;1\)</span>.</p>
+<ol>
+<li><p>Determina la probabilidad <span class="math inline">\(P\left(X_0=0,X_1=0, X_2=0\right)\)</span></p></li>
+<li><p>Determina la probabilidad de que la señal recibida en la estacion 2 sea correcta.</p></li>
+</ol></li>
+<li><p>Las variables aleatorias <span class="math inline">\(\xi_1, \xi_2, \ldots\)</span> son independientes distribuidas: <span class="math display">\[P\left(X_n=k\right)=
+              \begin{cases}
+                  0.1 \text{ si } k = 0 \\
+                  0.3 \text{ si } k = 1 \\
+                  0.2 \text{ si } k = 2 \\
+                  0.4 \text{ si } k = 3
+              \end{cases}\]</span> Sea <span class="math inline">\(X_0=0\)</span>, y sea <span class="math inline">\(X_n= max\left\{\xi_1, \ldots,\xi_n\right\}\)</span> el <span class="math inline">\(\xi\)</span> máximo observado hasta la fecha. Demuestra que <span class="math inline">\(\left\{X_n\right\}\)</span> es una cadena de Markov y determina la matriz de transición.</p></li>
+<li><p>Sea <span class="math inline">\(\left\{X_n\right\}\)</span> una cadena de Markov con espacio de estados <span class="math inline">\(S = \left\{0,1,2\right\}\)</span> y matriz de transición: <span class="math display">\[P= \left[
+                  \begin{matrix}
+                      0.1 &amp;  &amp; 0.2 &amp; 0.7 \\
+                      0.2 &amp;  &amp; 0.2 &amp; 0.6 \\
+                      0.6 &amp;  &amp; 0.1 &amp; 0.3 \\
+                  \end{matrix}
+                  \right]\]</span></p>
+<ol>
+<li><p>Calcula la matriz de transición <span class="math inline">\(P^{(2)}\)</span> en dos pasos.</p></li>
+<li><p>Calcula: <span class="math inline">\(P\left(\left. X_3 = 1\right\vert X_1=0\right)\)</span></p></li>
+<li><p>Calcula: <span class="math inline">\(P\left(\left. X_3 = 1\right\vert X_0=0\right)\)</span></p></li>
+</ol></li>
+<li><p>Sea <span class="math inline">\(\left\{X_n\right\}\)</span> una cadena de Markov con matriz de transición: <span class="math display">\[P= \left[
+                  \begin{matrix}
+                      0.6 &amp;  &amp; 0.3 &amp; 0.1 \\
+                      0.3 &amp;  &amp; 0.3 &amp; 0.4 \\
+                      0.4 &amp;  &amp; 0.1 &amp; 0.5 \\
+                  \end{matrix}
+                  \right]\]</span> Si se sabe que <span class="math inline">\(X_0=1\)</span>, determina <span class="math inline">\(P(X_2 = 1)\)</span>.</p></li>
+<li><p>Supongamos que <span class="math inline">\(\left\{X_n\right\}\)</span> es una cadena de Markov con dos estados y matriz de transición: <span class="math display">\[P= \left[
+                  \begin{matrix}
+                      \alpha  &amp; 1-\alpha \\
+                      1-\beta &amp; \beta    \\
+                  \end{matrix}
+                  \right]\]</span> Demuestra que el proceso <span class="math inline">\(\left\{Z_n\right\}= (X_{n-1}, X_n)\)</span> con estados <span class="math inline">\((0,0)\)</span>, <span class="math inline">\((0,1)\)</span>, <span class="math inline">\((1,0)\)</span>, <span class="math inline">\((1,1)\)</span>, es una cadena de Markov. Determian su matriz de transición.</p></li>
+</ol>
+</body>
+</html>
