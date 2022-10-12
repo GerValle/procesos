@@ -1,7 +1,7 @@
 ger:
   home: &h !!python/object/apply:pathlib.PosixPath
   - {home}
-  wd: !!python/object/apply:pathlib.PosixPath
+  procesos: !!python/object/apply:pathlib.PosixPath
   - *h
   - GerDrive
   - Documentos
