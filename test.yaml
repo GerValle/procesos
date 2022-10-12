@@ -1,0 +1,9 @@
+home: &h !!python/object/apply:pathlib.PosixPath
+- {home}
+wd: !!python/object/apply:pathlib.PosixPath
+- *h
+- GerDrive
+- Documentos
+- code_snippets
+- git_test
+- procesos_estocasticos
