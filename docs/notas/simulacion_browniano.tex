@@ -1,0 +1,158 @@
+\documentclass{article}
+\usepackage{amsmath, amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+%\usepackage{showkeys}
+%\usepackage{hyperref}
+\usepackage[a4paper, total={6in, 10in}]{geometry} 
+\usepackage{mathpazo,avant}
+\newtheorem{ejercicio}{Ejercicio}
+\usepackage{hyperref} 
+\begin{document}
+\section{Propiedades adicionales del Movimiento Browniano.}
+Sabemos que la variación cuadrática del Movimiento Browniano:
+\begin{equation}\label{eq:9}
+    \langle w, w\rangle_{[0,T]} = \lim_{\|\Pi\|\rightarrow 0}\sum_{i=0}^{n-1}\left(W_{t_{i+1}}-W_{t_i}\right)^2 = T.
+\end{equation}
+Donde el límite en (\ref{eq:9}) es el límite en $L^2$.
+\begin{ejercicio}
+    Sea $\Pi = \left\{t_0, \ldots,t_n\right\}$ una partición de $[0,T]$. Demuestra que:
+    \begin{equation}\label{eq:10}
+        \langle T, T\rangle = \lim_{\|\Pi\|\rightarrow 0}\sum_{i=0}^{n-1}\left(t_{i+1}-t_i\right)^2 = 0.
+    \end{equation}
+\end{ejercicio}
+Además de (\ref{eq:9}) y (\ref{eq:10}) tenemos la \emph{variación cruzada}:
+
+\begin{equation}\label{eq:11}
+    \langle w, T\rangle = \lim_{\|\Pi\|\rightarrow 0}\sum_{i=0}^{n-1}\left(W_{t_{i+1}}-W_{t_i}\right)\left(t_{i+1}-t_i\right) .
+\end{equation}
+\begin{ejercicio}
+    \par\noindent
+    \begin{enumerate}
+        \item Demuestra que el movimiento Browniano, alcanza un máximo y un mínimo en $[0,T]$. En consecuencia $\|w_{t_i}-w_{t_{i-1}}\|$ alcanza también un máximo en $[0,T]$.
+        \item Muestra que $\max \|w_{t_i}-w_{t_{i-1}}\| \rightarrow 0$ cuando $\|\Pi\|\rightarrow 0$.
+        \item Demuestra que 
+        \begin{equation*}
+            \left\vert\sum_{i=0}^{n-1}\left(W_{t_{i+1}}-W_{t_i}\right)\left(t_{i+1}-t_i\right)\right\vert \xrightarrow[\|\Pi\| \to 0]{} 0
+        \end{equation*}
+        y concluye que la variación cruzada: 
+        \begin{equation}\label{eq:12}
+            \langle w, T\rangle = 0.
+        \end{equation}    
+    \end{enumerate}
+\end{ejercicio}
+En cálculo estocástico (\ref{eq:9}), (\ref{eq:10})  y (\ref{eq:12}) suelen representarse de manera informal como:
+$$
+dwdw=dt, \quad dwdt = 0,  \quad dtdt = 0.
+$$
+
+
+\subsection{Estimación de la volatilidad en un movimiento Browniano Geométrico.}
+La forma general del movimiento Browniano geométrico esta dada por:
+\begin{equation}
+    S_t = S_0 \exp\left\{\sigma W_t + (\alpha-\frac{1}{2}\sigma^2)t \right\}
+\end{equation}
+con $\alpha \geq 0$.
+\begin{ejercicio}
+    Supongamos que observamos un movimiento Browniano geométrico en el intervalo: $[t, T]$ y definimos en este intervalo la partición: $\Pi = \left\{t=t_0, t_1\ldots,t_{n-1}, t_n=T \right\}$. Usa lo probado en (\ref{eq:9}), (\ref{eq:10})  y (\ref{eq:12}) para probar que un buen estimador para $\sigma^2$ esta dado por:
+\begin{equation}\label{eq:13}
+    \sigma^2 \approx \frac{1}{T-t}\sum_{i=0}^{n-1}\left(\log\frac{S_{t_{i+1}}}{S_{t_i}}\right)^2
+\end{equation}
+\end{ejercicio}
+\section{Valuación de opciones.}
+
+En esta sección se pide calcular precios de varias opciones. En todos los casos, considera una tasa $r = 7.97\%$ anual. Estima la volatilidad de los rendimientos usando el estimador en (\ref{eq:13}). Para ello selecciona alguna de las series de precios que se incluyen en el archivo csv adjunto. El plazo de cada opción será $T = 182/360$ (medio año). Determina un strike $K$ \emph{razonable}, que este en niveles similares a los de la serie de precios que hallas seleccionado. 
+
+Una opción, es un instrumento derivado  que otorga a su tenedor el derecho de comprar o vender un subyacente a un precio preacordado $K$ en una fecha futura $T$.
+
+Si este derecho sólo se puede ejercer en el tiempo $T$, decimos que la opción es de tipo \emph{Europea}. Si puede ejercerce en $T$ o en cualquier momento previo a $T$, entonces decimos que la opción es \emph{Americana}. Asimismo, si la opción otorga el derecho de compra, decimos que la opción es tipo \emph{Call}, si otorga el derecho de vender entonces la opción es tipo \emph{Put}. Este tipo de opciones son las mas sencilllas y se conocen como opciones europeas \emph{vainilla}.
+
+En clase estudiamos el caso de una opción Europea tipo Call. En este caso, si $T$ es la fecha de vencimiento del contrato, y $S_t$ es el precio del subyacente al tiempo $t$,  entonces el valor de la opción en su fecha de vencimiento $T$ será: $C_T=max\left\{S_T-K, 0\right\} = \left(S_T-K\right)^+$. Al valor de una opción en su fecha de vencimiento se le conoce como \emph{función de pago}.
+
+\begin{ejercicio}
+    Encuentra la función de pago de una opción Europea tipo Put.
+\end{ejercicio}
+
+El modelo tradicional de valuación de opciones, supone que el precio del subyacente al tiempo $t$ estaba determinado por el proceso de precios:
+
+\begin{equation*}
+    S_t = S_0 \exp\left\{\left(r - \frac{1}{2}\sigma^2\right)t+\sigma W_t\right\}
+\end{equation*}
+
+o bien
+
+\begin{equation}\label{eq:1}
+    S_T = S_t \exp\left\{\left(r - \frac{1}{2}\sigma^2\right)(T-t)+\sigma \left(W_T-W_t\right)\right\},
+\end{equation}
+
+donde $W_t$ es un movimiento browniano estándar.
+
+El precio al tiempo de una opción europea tipo call lo obtuvimos al calcular la esperanza: 
+\begin{equation}\label{eq:2}
+    C_t = e^{-r \left(T-t\right)}E\left[\left.\left(S_T-K\right)^+\right\vert \mathcal{F}_t\right].
+\end{equation}
+
+\begin{ejercicio}
+    Encuentra la fórmula de valuación de una opción europea tipo Put.
+\end{ejercicio}
+
+En el caso de las opciones europeas vainilla, es posible encontrar una fórmula cerrada para el precio de la misma. Sin embargo, existen muchos casos en los cuales, esto no es posible y la única alternativa es calcular el precio de manera numérica. Los métodos numéricos que suelen ocuparse en la valuación de opciones son el \emph{método Binomial}, el \emph{método de diferencias finitas} y el \emph{método Montecarlo}. Este último se vale de que (\ref{eq:1}) es igual en distribución a:   
+
+\begin{equation}\label{eq:3}
+    S_T = S_t \exp\left\{\left(r - \frac{1}{2}\sigma^2\right)(T-t)+\sigma z \sqrt{T-t}\right\},
+\end{equation}
+donde $z\sim N(0,1)$.
+
+Con (\ref{eq:3}) podemos generar una serie $z(1), \ldots, z(m)$ de $m$ números alteatorios normales estándar, con los cuales obtenemos una serie:
+\begin{equation}\label{eq:4}
+    S_T(j) = S_t\exp\left\{\left(r - \frac{1}{2}\sigma^2\right)(T-t)+\sigma z(j) \sqrt{T-t}\right\}\quad j = 1,\ldots, m
+\end{equation}
+de $m$ precios simulados.
+
+Usando la Ley de los Grandes Números, es posible dar una estimación del precio en (\ref{eq:2}) a través del promedio:
+\begin{equation}\label{eq:5} 
+    C_t \approx e^{-r(T-t)}\frac{1}{m}\sum_{j=1}^m \left(S_T(j)-K\right)^+
+\end{equation}
+Esta forma de aproximar el precio de la opción es conocida como el \emph{Método Montecarlo}.
+\begin{ejercicio}
+    Escribe un script que te ayude a calcular el precio de una opción europea vainilla tipo Put, a través del método Montecarlo. Compara tus resultados con los obtenidos con la fórmula cerrada.
+\end{ejercicio}
+    Los precios simulados en (\ref{eq:4}) son precios al tiempo $T$. Si partimos el intervalo $(t,T)$ en subintervalos determinados por $t = t_0, t_1, \ldots, t_{n-1}, t_n = T$, podemos simular toda una \emph{trayectoria} de precios del activo desde el tiempo $t$ hasta el $T$, mediante:
+    \begin{equation}\label{eq:6}
+        S_{t_i}(j) = S_{t_{i-1}}\exp\left\{\left(r - \frac{1}{2}\sigma^2\right)(t_i-t_{i-1})+\sigma z_i(j) \sqrt{t_i-t_{i-1}}\right\}\quad i = 1,\ldots, n,
+    \end{equation}
+    con $S_{t_0}$ conocido. Observemos que en (\ref{eq:6}), para cada $j$ tendremos una trayectoria distinta del movimiento browniano y en consecuencia una trayectoria distinta del proceso de precios.
+    \begin{ejercicio}
+        \par\noindent
+    \begin{enumerate}
+        \item Escribe un código en R que te ayude a simular una trayectoria de precio con $n$ subintervalos.
+        \item Usa lo programado en el inciso anterior para programar una rutina que genere $m$ trayectorias de precios.
+    \end{enumerate}
+\end{ejercicio}
+
+El precio de una opción europea vainilla puede calcularse de manera cerrada. Sin embargo cambios leves en un contrato de opciones nos conduce a casos dónde la única forma de calcular el precio es de manera numérica. Por ejemplo, si la opción es Americana en lugar de Europea, entoces el precio de la opción puede calcularse sólo de manera numérica, no existe un fórmula cerrada y aunque es posible usar el método Montecarlo para valuar Americanas, en definitiva no es el más fácil de programar y tampoco es el mas eficiente. Alternativas como el método Binomial o el método de diferencias finitas son preferidos. Sin embargo,  existen  otro tipo de opciones para las cuales el método Montecarlo es bastante apropiado. 
+\begin{ejercicio}
+Investiga como valuar una opción americana en R. Busca la librería apropiada y utilizala.    
+\end{ejercicio} 
+\subsection{Opciones Asiáticas.}
+Una opción es de tipo \emph{Asiática} si su función de pago depende de algún modo del precio promedio del subyacente. Supongamos por ejemplo que la fecha de vencimiento de una opción es al tiempo $T$. Dos posibilidades comunes para la función de pago de una opción Asiática serían:
+\begin{equation}\label{eq:7}
+    C_T= max\left\{S_T-\overline{S}_T, 0\right\}
+\end{equation}
+o bien
+\begin{equation}\label{eq:8}
+    C_T= max\left\{\overline{S}_T-K, 0\right\},
+\end{equation}
+donde $\overline{S}_T$ es el precio promedio del subyacente a lo largo del intervalo $[0, T]$. Las opciones Asiáticas son un tipo de opción \emph{path dependent} o \emph{dependiente de la trayectoria}. Este nombre es adecuado, pues el precio depende de que conozcamos el precio del subyacente a lo largo de toda su trayectoria, para poder calcular su precio promedio. Notemos también que el calificativo de Asiática no esta realcionado con el momento en que la opción puede ser ejercida, en este sentido una opción Asiática puede a su vez ser Europea si puede ser ejercida sólo en la fecha de vencimiento o Americana si también puede ejercerce en cualquier fecha previa a la madurez de la opción.
+
+En (\ref{eq:7}) y (\ref{eq:8}) $\overline{S}_T$ puede acordarse que sea el promedio aritmético o bien el promedio geométrico de precios. Este último promedio, facilita un poco los cálculos.
+\begin{ejercicio}
+    Escribe un programa que calcule el precio de una opción Asiática (tipo Europea) al tiempo $t= 0$, con la función de pago definida en (\ref{eq:7}) y donde $\overline{S}_T$ esta determinado por el promedio aritmético.
+    ¿Como cambiaría tu código si evaluaramos el precio de la opción al tiempo $t \in (0,T)$?
+\end{ejercicio}
+\begin{ejercicio}
+    Escribe un programa que calcule el precio de una opción Asiática, con la función de pago en (\ref{eq:8}). Encuentra este precio considerando un promedio geométrico. ¿Podrías encontrar una fórmula cerrada en este caso? Si es asi aprovechala para comparar tu aproximación 
+    
+\end{ejercicio}
+
+\end{document}
