@@ -1,0 +1,242 @@
+\documentclass{beamer}
+    %\usetheme{JuanLesPins}
+    \usetheme{Warsaw}
+    \usepackage[spanish]{babel}
+    \usepackage[utf8]{inputenc}
+    \usepackage{amsmath, amsfonts}
+    \usepackage{graphicx}
+    %\graphicspath{ {C:/Users/gerva/iCloudDrive/Documents/unam/PortafoliosOptimos/} }
+    % Components of the title page
+    \title[Optimización sin correlaciones]{Optimización de portafolios sin correlaciones}
+    %\subtitle{A Practical Guide for Scientific Writing}
+    \author{Germán Valle Trujillo}
+    \institute{Facultad dde Ciencias, UNAM.}
+    \date[L24H :: 18-09-2018]{Septiembre 18, 2018}  
+    %\titlegraphic{\includegraphics[width=20mm]{C:/Users/gerva/iCloudDrive/Documents/unam/PortafoliosOptimos/ciencias.png}}
+    %
+    \begin{document}
+    % Frame 1
+    \frame[plain]{\titlepage}
+    % Frame 2
+    %\section*{Outline}
+    %\frame[t]{ \frametitle{Presentation outline} \tableofcontents }
+    % Frames 3 and 4
+    \section[Introducción]{Introducción}
+    %\subsection[Definition]{Definition of \LaTeX}
+    %\frame[t]
+    %{ \frametitle{Introducción}}
+    \begin{frame}
+        \frametitle{Introducción}
+        Uno de los campos de aplicación más inmediatos para las técincas de optimización lo encontramos en el medio financiero. 
+    \par\medskip
+        No es difícil convencerse de la relevancia que tiene para un inversionista, grande o pequeño el hecho de encontrar una combinación de activos que maximice sus rendimientos.
+    \par\medskip
+        Para una tesorería grande, para un banco o para una administradora de fondos, es de vital importancia contar con una metodología que le ayude a construir portafolios \emph{eficientes}.
+    \end{frame}
+    \begin{frame}   
+    Debido a la naturaleza de los problemas de optimización que se encuentran en finanzas, lo natural es plantear problemas que no sólo involucran cierta aleatoriedad, también de manera natural son problemas no lineales. Estas dos características, les confieren interés desde dos puntos de vista.
+    \par\medskip
+    Estas características presentan retos que deben ser atendidos adecuadamente.
+    \end{frame}
+
+    \section[La teoría moderna de portafolios]{La teoría moderna de portafolios}
+    \begin{frame}{La teoría moderna de portafolios}
+        Aunque aún conocida como ``Teoría Moderna de Portafolios'', cada vez es más referida como ``Teoría Clásica de Portafolios''. Y esto es correcto, dado que el modelo seminal de Markowitz data de los 1950's. 
+        \par\medskip
+        Sin embargo y aún cuando ya tiene más de medio siglo de existencia, es una teoría que no solo sigue estudiándose, si no que además sigue siendo usada de manera muy frecuente en la industria.
+        \medskip
+        Claro está que existe un sinnúmero de modelos que buscan proveer de mejores soluciones. En esta presentación platicaremos de un modelo basado en Markowitz, que sin embargo simplifica ambos problemas: aleatoriedad y no linealidad. 
+    \end{frame}
+    \begin{frame}
+        De manera breve; el modelo clásico de optimización de portafolios supone un mercado con $N$ activos riesgosos y un sólo periodo de inversión. 
+        \par
+        El activo $i$ tiene rendimiento esperado $r_i$, $i = 1, \ldots, n$. El objetivo es encontrar un vector 
+        $$\mathbf{x} = (x_1\ldots x_N)^\top$$  
+        Que maximice el rendimiento esperado del portafolio:
+        \begin{equation}
+        \mu = E\left[\sum_{i=1}^{N}r_ix_i\right]
+        \label{eq:1}
+        \end{equation}
+        En este sentido, $x_i$ es el peso del activo $i$ invertido en el portafolio.
+    \end{frame}
+    \begin{frame}
+        Simplemente maximizar, el rendimiento esperado del portafolio, no tiene gran interés. Es necesario imponer restricciones. Estas restricciones, buscan mantener el riesgo del portafolio en niveles tolerables. 
+        \par\medskip
+        Para medir el riesgo introducimos la función de riesgo: $\Gamma(x)$. De modo que el problema a resolver se traduce como sigue:
+        \begin{align*}
+            \max \mu&= E[rx]\\
+            \Gamma(x)&\leq \Gamma_0
+        \end{align*}
+        Es decir, maximizamos el rendimiento limitando el riesgo del portafolio.
+    \end{frame}
+    \begin{frame}
+        Un planeamiento alternativo es el siguiente:
+        \begin{align*}
+            \min \Gamma(x)&\\
+            \mu&\geq \mu_0
+        \end{align*}
+        En este caso, minimizamos riesgo, obteniendo un rendimiento mínimo.
+
+        Restricciones adicionales suelen ser necesarias, por ejemplo es natural pedir:
+        $$
+        \sum_{i=1}^{N}x_i=1
+        $$
+        Si existen restricciones de ventas en corto, también necesitaríamos pedir que $x_i\geq 0$ al menos para algunos activos.
+    \end{frame}
+    \begin{frame}
+        Finalmente, un planteamiento más completo sería:
+        \begin{align*}
+            \min \Gamma(x)&\\
+            \mu&\geq \mu_0\\
+            x& \in Q.
+        \end{align*}
+        Donde $Q$ es define una serie de restricciones adicionales.
+        
+        En el modelo clásico de Markowitz, la medida de riesgo seleccionada es la volatilidad del portafolio, de modo que el problema a resolver es el probema no lineal:
+        \begin{align*}
+            \min \sqrt{x^\top \Omega x}&\\
+            \mu &\geq \mu_0\\
+            x& \in Q.
+        \end{align*}
+    \end{frame}
+    \begin{frame}
+        Una variante sencilla de este problema la obtenemos con el siguiente planteamiento:
+        \begin{align*}
+            \max \lambda \mu + (1-\lambda)\frac{1}{2} x^\top \Omega x&\\
+            \mu&\geq \mu_0\\
+            x& \in Q.
+        \end{align*}
+        Donde $\lambda \in (0,1)$ y $\lambda$ es una variable de ``aversión al riesgo''.
+
+        Como vemos, este es un problema cuadrático, relativamente simple. De hecho si el conjunto $Q$ no incluye restricciones particularmente complicadas, entonces podemos usar una variedad de alternativas de software para resolverlo de manera bastante satisfactoria. Y de hecho este suele ser el caso, por lo general $Q$ suele ser convexo.
+    \end{frame}
+    \section[Alternativa a la teoría cláica]{Alternativa a la teoría clásica}
+    \begin{frame}{Alternativa a la teoría clásica}
+        Si el problema de optimización planteado para encontrar portafolios óptimos es como vimos un problema que a primera instancia no implica grandes complicaciones técnicas o computacionales, ¿porque pensar en alternativas?.
+        \par\medskip
+        Por un lado la no linealidad, no representa gran dificultad. Dentro de los problemas no lineales, este es uno de los mas manejables. Sin embargo, ¿que pasa con la aleatoriadad?
+    \end{frame}
+    \begin{frame}
+        En el caso de la aleatoriedad, si podemos tener complicaciones mayores. Bajo el supuesto de normalidad todo funciona  sin grandes contratiempos. 
+        \par\medskip
+        Sin embargo, no es difícil encontrar casos, donde este supuesto no se justifica. Mas aún si el portafolio de inversión es ``multiactivo'' o bien si invierte en diferentes mercados.
+        \par\medskip
+        Si bien existe un gran número de modelos para describir los rendimientos de activos, que buscan corregir esta desviación de la normalidad. Sigue siendo un problema a veces no menor, la estimación de parámetros en estos modelos. 
+    \end{frame}
+    \begin{frame}
+        Mas aún como vemos; el modelo clásico basa gran parte de  valor en las correlaciones entre activos que se obtienen a través de la matriz de varianza-covarianza. 
+        \par\medskip
+        De nuevo, en un mundo normal esto no debería representar mayor problema. Sin embargo, si no tenemos certeza de la distribución conjunta de los rendimientos, entonces si que podemos pasar un mal rato al momento de tratar de ajustar alguna estructura de correlación.
+    \end{frame}
+    \subsection[Escenarios y linealización]{Escenarios y linealización}
+    \begin{frame}{Escenarios y linealización}
+        Recordemos, uno de los planteamientos originales que propusimos es el siguiente:
+        \begin{align*}
+            \min \Gamma(x)&\\
+            \mu&\geq \mu_0\\
+            x& \in Q.
+        \end{align*}
+        Donde $\Gamma$ es una ``función de riesgo''. En el caso del modelo de Markowitz, esta función es la volatilidad del portafolio, de manera explicita en Makowitz:
+        $$
+        \Gamma(x) = E\left[\left(\sum_{i=1}^{N}r_ix_i-\mu\right)^2\right]^{1/2}
+        $$
+    \end{frame}
+    \begin{frame}
+        Sin embargo, la volatilidad no es la única funcion que podemos considerar para estimar el riesgo. De hecho, medidas como el ``VaR'' o el ``CVaR'' son populares en la industria.
+
+        En esta presentación proponemos la ``Desviación Absoluta Media'' (DAM):
+
+        $$
+        DAM(x):=\Gamma(x) = E\left[\left\vert\sum_{i=1}^{N} r_ix_i-\mu\right\vert\right]
+        $$
+        Como vemos esta, al igual que la volatilidad, también es una medida de dispersión. De hecho si suponemos normalidad, podemos demostrar sin mucha complicación que $DAM(x)$ y $\sigma(x)$ son proporcionales. Por lo tanto en el caso de normalidad los problemas son equivalentes.
+        \par\medskip
+        Por otro lado, observemos que $DAM(x)$ sigue siendo no lineal. ¿Que ganamos entonces?
+    \end{frame}
+    \begin{frame}
+        Ganamos mucho, el problema:
+        \begin{align*}
+            \min DAM(x)&\\
+            \mu&\geq \mu_0\\
+            x& \in Q,
+        \end{align*}
+        forma parte de una familia de problemas ``PL Computables''. Esta es una familia de problemas, que si bien no son linales, si pueden ser linealizados y resolverse mediante técnicas de programación lineal.
+        \par\medskip
+        Quizás no sea muy claro aún como lograremos esto. Para ello necesitamos la idea de ``escenarios''.
+    \end{frame}
+    \begin{frame}
+        Los escenarios, no son mas que una forma de discretizar la distribución de los rendimientos. Esto es, supongamos que hemos identificado una serie de ``escenarios'' y que determinamos una probabilidad $p_k$ de que el escenario $k$, $k=1, \ldots, M$ ocurra. El problema de minimización podemos expresarlo ahora como:
+        \begin{align*}
+            \min \sum_{k=1}^M p_k&\left\vert\sum_{i=1}^{N} r_{ik}x_i-\mu\right\vert \\
+            \mu&\geq \mu_0\\
+            x& \in Q,
+        \end{align*}
+        Donde $r_{ik}$ es el rendimiento del activo $i$ en el escenario $k$. Notemos además que  $\mu = \sum_{i=1}^N\mu_i x_i$ con $\mu_i$ el rendimiento esperado del activo $i$.
+    \end{frame}
+
+    \begin{frame}
+        Obtenemos entonces el problema:
+        \begin{align*}
+            \min \sum_{k=1}^M p_k&\left\vert\sum_{i=1}^{N} r_{ik}x_i-\mu\right\vert \\
+            \mu &= \sum_{i=1}^N\mu_i x_i\\
+            \mu&\geq \mu_0\\
+            x& \in Q,
+        \end{align*}
+        \begin{block}{}
+            \begin{itemize}
+                \item El problema no es lineal, pero no esta muy lejos de serlo. 
+                \item No es necesario estimar una estructura de correlaciones, estas están implícitas en la en la selección de escenarios. 
+            \end{itemize}
+        \end{block}
+    \end{frame}
+    \begin{frame}{Linealización}
+        Ahora bien, prometimos que el problema era ``PL Computable''. Para lograrlo, necesitamos aplicar un método bastante popular en programación lineal cuando tenemos valores absolutos. Definimos:
+        $$
+        d_k = \left\vert\sum_{i=1}^{N} r_{ik}x_i-\mu\right\vert
+        $$
+    \end{frame}
+    \begin{frame}
+        Con lo cual replanteamos el problema como sigue:
+    \begin{align*}
+        \min \sum_{k=1}^M p_k&d_k \\
+        d_k & \geq \sum_{i=1}^{N} r_{ik}x_i-\mu\\
+        d_k & \geq \mu-\sum_{i=1}^{N} r_{ik}x_i\\
+        \mu &= \sum_{i=1}^N\mu_i x_i\\
+        \mu&\geq \mu_0\\
+        d_k& \geq 0\\
+        x& \in Q,
+    \end{align*}
+    \end{frame}
+    \begin{frame}
+        El problema anterior ya es lineal y si bien ha sido necesario incluir nuevas variables  y restricciones, la linealidad del problema nos permite resolverlo de manera altamente eficiente, esta no es una ganancia menor. 
+        \par\medskip
+        Esta metodología puede seguirse para medidas de riesgo diferentes, consideremos por ejemplo:
+        $$
+        \delta(x) = E\left[max\left\{0, \mu-E\left[\sum_{i=0}^N r_ix_i\right]\right\}\right]
+        $$
+        Esta medida de riesgo, es también una medida de dispersión, sin embargo en este caso se consideran unicamente los casos donde efectivamente hubo una pérdida.
+    \end{frame}
+    \begin{frame}
+        A primera instancia luce como una medida de riesgo mucho mas complicada, sin embargo también es PL-Computable. De hecho el planteamiento del problema de optimización es inclusive mas simple: 
+        \begin{align*}
+            \min \sum_{k=1}^M p_k&d_k \\
+            d_k & \geq \mu-\sum_{i=1}^{N} r_{ik}x_i\\
+            \mu &= \sum_{i=1}^N\mu_i x_i\\
+            \mu&\geq \mu_0\\
+            d_k& \geq 0\\
+            x& \in Q,
+        \end{align*}
+    \end{frame}
+    \section[Conclusión]{Conclusión}
+    \begin{frame}{Conclusión}
+        La Teoría \emph{Moderna} de Portafolios, aunque aún sigue siendo muy utilizada en la práctica, tiene muchos detalles que pueden ser mejorados. Existe un sin número de modelos que intentan aliviar sus inconvenientes desde perspectivas diferentes. 
+    \par\medskip
+    El modelo que hemos presentado ataca por un lado el tema de la no linealidad. Usando una medida de riego alternativa logramos linealizar el problema, lo cual nos da ventajas al momento de implementar una solución.
+    \par\medskip
+    Una de las ideas claves que nos conducen a la linealización es el uso de escenarios, mismos que incluyen la estructura de correlaciones entre activos. Con lo cual evitamos el problema de la estimación paramétrica.
+    \par\medskip
+    Queda como ``cabo suelto'' el modo de discretizar la distribución. ¿Como determinamos el numero de escenarios?¿Como asignamos probabilidades a estos escenarios?
+    \par\medskip
+    En realidad hay muchas formas de atacar este problema y en todo caso, puede ser más un punto a favor para este planteamiento. La manera en que determinemos los escenarios puede hacer inclusive que el modelo sea aún mas flexible.
+    \end{frame}
+    \end{document}

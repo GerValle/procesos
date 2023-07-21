@@ -1,0 +1,248 @@
+\documentclass[12pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\usepackage{amsmath,amssymb}
+\setlength{\oddsidemargin}{0.5cm}
+\setlength{\evensidemargin}{0.5cm}
+\setlength{\textwidth}{15cm}
+\setlength{\topmargin}{-2cm}
+\setlength{\textheight}{22cm}
+%\usepackage{tgbonum}
+%Numbered environment
+\newcounter{example}[section]
+\newenvironment{example}[1][]{\refstepcounter{example}\par\medskip
+   \noindent \textsf{Ejemplo~\theexample. #1}\par\medskip\noindent\hrule\par\medskip\rmfamily}{\par\medskip\hrule\par\medskip}
+\usetikzlibrary{babel}
+
+\begin{document}
+
+\begin{example}[Optimo único]
+    Consideremos un problema de programación lineal con función objetivo y restricciones:
+    \begin{alignat*}{5}
+     max~&  &  2&x_1- &  &x_2 &  &       &      &      \\
+    s.a.~&  &   &x_1+ &  &x_2 &  &\leq 4 &      &      \\
+         &  &  -&x_1+ &  &x_2 &  &\leq 2 &      &      \\
+         &  &   &x_1- & 2&x_2 &  &\leq 2 &      &      \\
+         &  &   &     &  &x_i &  &\geq 0 & \quad&i=1,2.
+    \end{alignat*}
+
+%\definecolor{ffxfqq}{rgb}{1,0.4980392156862745,0}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+    \begin{axis}[
+            x=1cm,y=1cm,
+            axis lines=middle,
+            %ymajorgrids=true,
+            %xmajorgrids=true,
+            xmin=-7.5,
+            xmax=5,
+            ymin=-6.5,
+            ymax=5.0238875720826925,
+            xtick={-10,-9,...,16},
+            ytick={-6,-5,...,5},]
+        \clip(-7.5,-6.5) rectangle (5,5);
+        \fill[line width=0pt,color=gray,fill=gray,fill opacity=0.22] (1,3) -- (0,2) -- (0,0) -- (2,0) -- (3.3333333333333335,0.6666666666666666) -- cycle;
+        %
+        \draw [line width=2pt,domain=-10.576880237783161:16.926706233411924] plot(\x,{4-\x});
+        \draw [line width=2pt,domain=-10.576880237783161:16.926706233411924] plot(\x,{2+\x});
+        \draw [line width=2pt,domain=-10.576880237783161:16.926706233411924] plot(\x,{(-2+1*\x)/2});
+        %\draw [line width=2pt,domain=-10.576880237783161:16.926706233411924] plot(\x,{(-2--1*\x)/2});
+        \draw [line width=2pt,color=blue,domain=-10.576880237783161:16.926706233411924] plot(\x,{-2+2*\x});
+        \draw [-stealth,line width=2pt,color=blue] (1.5,1) -- (2.25,0.625);
+        \draw [line width=1.6pt,dotted,color=blue,domain=-10.576880237783161:16.926706233411924] plot(\x,{(-12.5--5*\x)/2.5});
+        \begin{scriptsize}
+            \draw [fill=red] (3.3333333333333335,0.6666666666666666) circle (3pt);
+            \draw[color=red] (3.4808969541054897,0.9973856294943558) node {$x^*$};
+            \draw[color=blue] (2.4,0.9) node {$\nabla z_0$};
+        \end{scriptsize}
+    \end{axis}
+\end{tikzpicture}
+
+Este problema tiene una única solución óptima en el punto:
+$$
+x^* = \left(
+    \begin{matrix}
+    10/3\\[3pt]
+    2/3
+    \end{matrix}
+    \right)
+$$
+Con valor  óptimo $z_0 =cx^* = 6$.
+\par
+\end{example}%
+\newpage
+\begin{example}[Segmento óptimo]
+    Consideremos un problema de programación lineal con función objetivo y restricciones:
+    \begin{alignat*}{5}
+     min~&  &   &x_1- &  &x_2 &  &       &      &      \\
+    s.a.~&  &   &x_1+ &  &x_2 &  &\leq 4 &      &      \\
+         &  &  -&x_1+ &  &x_2 &  &\leq 2 &      &      \\
+         &  &   &x_1- & 2&x_2 &  &\leq 2 &      &      \\
+         &  &   &     &  &x_i &  &\geq 0 & \quad&i=1,2.
+    \end{alignat*}
+
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+    \begin{axis}[
+            x=1cm,y=1cm,
+            axis lines=middle,
+            %ymajorgrids=true,
+            %xmajorgrids=true,
+            xmin=-7.5,
+            xmax=5,
+            ymin=-6.5,
+            ymax=5.0238875720826925,
+            xtick={-10,-9,...,16},
+            ytick={-6,-5,...,5},]
+        \clip(-7.5,-6.5) rectangle (5,5);
+        \fill[line width=0pt,color=gray,fill=gray,fill opacity=0.22] (1,3) -- (0,2) -- (0,0) -- (2,0) -- (3.3333333333333335,0.6666666666666666) -- cycle;
+        %
+        \draw [line width=2pt,domain=-10.576880237783161:16.926706233411924] plot(\x,{4-\x});
+        \draw [line width=2pt,domain=-10.576880237783161:16.926706233411924] plot(\x,{2+\x});
+        \draw [line width=2pt, color=red,domain=0:1] plot(\x,{2+\x});
+        \draw [line width=2pt,domain=-10.576880237783161:16.926706233411924] plot(\x,{(-2+1*\x)/2});
+        %\draw [line width=2pt,domain=-10.576880237783161:16.926706233411924] plot(\x,{(-2--1*\x)/2});
+        \draw [line width=2pt,color=blue,domain=-10.576880237783161:16.926706233411924] plot(\x,{-1+\x});
+        \draw [-stealth,line width=2pt,color=blue] (1.5,0.5) -- (1.9,0.1);
+        \draw [line width=1.6pt,dotted,color=blue,domain=-10.576880237783161:16.926706233411924] plot(\x,{0.5+\x});
+        \begin{scriptsize}
+            \draw [fill=red] (0,2) circle (3pt);
+            \draw [fill=red] (1,3) circle (3pt);
+            \draw[color=red] (0.2,1.8) node {$x^*_0$};
+            \draw[color=red] (1.4,3) node {$x^*_1$};
+            \draw[color=blue] (2.2,0.3) node {$\nabla z_0$};
+        \end{scriptsize}
+    \end{axis}
+\end{tikzpicture}
+
+La solución óptima es el segmento: $\lambda x^*_0 + (1-\lambda) x_1^*$, con $\lambda \in [0,1]$ y 
+$$
+x^*_0 = \left(
+    \begin{matrix}
+    0\\[3pt]
+    2
+    \end{matrix}
+    \right),
+\qquad
+x^*_1 = \left(
+    \begin{matrix}
+    1\\[3pt]
+    3
+    \end{matrix}
+    \right)
+$$
+Con valor óptimo $z_0 = c(\lambda x_0^* + (1-\lambda)x_1^*)=-2$, en particular: $z_0 = cx_0^* = cx_1^*=-2$
+
+\end{example}%
+\newpage
+
+
+\begin{example}[Rayo óptimo]
+    Consideremos un problema de programación lineal con función objetivo y restricciones:
+    \begin{alignat*}{5}
+     min~&  &   &x_1- &  &x_2 &  &       &      &      \\
+    s.a.~&  &   &x_1+ &  &x_2 &  &\geq 4 &      &      \\
+         &  &  -&x_1+ &  &x_2 &  &\leq 2 &      &      \\
+         &  &   &x_1- & 2&x_2 &  &\leq 2 &      &      \\
+         &  &   &     &  &x_i &  &\geq 0 & \quad&i=1,2.
+    \end{alignat*}
+
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+    \begin{axis}[
+            x=1cm,y=1cm,
+            axis lines=middle,
+            %ymajorgrids=true,
+            %xmajorgrids=true,
+            xmin=-7.5,
+            xmax=5,
+            ymin=-6.5,
+            ymax=5.0238875720826925,
+            xtick={-10,-9,...,16},
+            ytick={-6,-5,...,5},]
+        \clip(-7.5,-6.5) rectangle (5,5);
+        \fill[line width=0pt,color=gray,fill=gray,fill opacity=0.22] (3,5) -- (1,3) -- (3.3333333333333335,0.6666666666666666) -- (5,1.5) -- (5,5) -- cycle;
+        %
+        \draw [line width=2pt,domain=-10.576880237783161:16.926706233411924] plot(\x,{4-\x});
+        \draw [line width=2pt,domain=-10.576880237783161:16.926706233411924] plot(\x,{2+\x});
+        \draw [line width=2pt, color=red,domain=1:3] plot(\x,{2+\x});
+        \draw [line width=2pt,domain=-10.576880237783161:16.926706233411924] plot(\x,{(-2+1*\x)/2});
+        %\draw [line width=2pt,domain=-10.576880237783161:16.926706233411924] plot(\x,{(-2--1*\x)/2});
+        \draw [line width=2pt,color=blue,domain=-10.576880237783161:16.926706233411924] plot(\x,{-1+\x});
+        \draw [-stealth,line width=2pt,color=blue] (1.5,0.5) -- (1.9,0.1);
+        \draw [line width=1.6pt,dotted,color=blue,domain=-10.576880237783161:16.926706233411924] plot(\x,{0.5+\x});
+        \draw [-stealth,line width=2pt,color=red] (1,3) -- (1.5,3.5);
+        \begin{scriptsize}
+            %\draw [fill=red] (0,2) circle (3pt);
+            \draw [fill=red] (1,3) circle (3pt);
+            %\draw[color=red] (0.2,1.8) node {$z_0$};
+            \draw[color=red] (1.4,3) node {$x^*$};
+            \draw[color=blue] (2.2,0.3) node {$\nabla z_0$};
+        \end{scriptsize}
+    \end{axis}
+\end{tikzpicture}
+
+La solución óptima de este problema es el rayo óptimo: $x^*+\mu d$ con $\mu\geq 0$ y 
+$$
+x^* = \left(
+    \begin{matrix}
+    1\\[3pt]
+    3
+    \end{matrix}
+    \right),
+\qquad
+d = \left(
+    \begin{matrix}
+    1/2\\[3pt]
+    1/2
+    \end{matrix}
+    \right)
+$$
+Con valor óptimo $z_0=c(x^*+\mu d)=-2$, observemos que $z_0= cx^*$ y $cd =0$.
+\end{example}
+\newpage
+
+\begin{example}[Optimo no finito]
+    Consideremos un problema de programación lineal con función objetivo y restricciones:
+    \begin{alignat*}{5}
+     max~&  &  2&x_1- &  &x_2 &  &       &      &      \\
+    s.a.~&  &   &x_1+ &  &x_2 &  &\geq 4 &      &      \\
+         &  &  -&x_1+ &  &x_2 &  &\leq 2 &      &      \\
+         &  &   &x_1- & 2&x_2 &  &\leq 2 &      &      \\
+         &  &   &     &  &x_i &  &\geq 0 & \quad&i=1,2.
+    \end{alignat*}
+
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+    \begin{axis}[
+            x=1cm,y=1cm,
+            axis lines=middle,
+            %ymajorgrids=true,
+            %xmajorgrids=true,
+            xmin=-7.5,
+            xmax=5,
+            ymin=-6.5,
+            ymax=5.0238875720826925,
+            xtick={-10,-9,...,16},
+            ytick={-6,-5,...,5},]
+        \clip(-7.5,-6.5) rectangle (5,5);
+        \fill[line width=0pt,color=gray,fill=gray,fill opacity=0.22] (3,5) -- (1,3) -- (3.3333333333333335,0.6666666666666666) -- (5,1.5) -- (5,5) -- cycle;
+        %
+        \draw [line width=2pt,domain=-10.576880237783161:16.926706233411924] plot(\x,{4-\x});
+        \draw [line width=2pt,domain=-10.576880237783161:16.926706233411924] plot(\x,{2+\x});
+        \draw [line width=2pt,domain=-10.576880237783161:16.926706233411924] plot(\x,{(-2+1*\x)/2});
+        %\draw [line width=2pt,domain=-10.576880237783161:16.926706233411924] plot(\x,{(-2--1*\x)/2});
+        \draw [line width=2pt,color=blue,domain=-10.576880237783161:16.926706233411924] plot(\x,{-2+2*\x});
+        \draw [-stealth,line width=2pt,color=blue] (1.5,1) -- (2.25,0.625);
+        \draw [line width=1.6pt,dotted,color=blue,domain=-10.576880237783161:16.926706233411924] plot(\x,{(-12.5--5*\x)/2.5});
+        \begin{scriptsize}
+            \draw[color=blue] (2.4,0.9) node {$\nabla z_0$};
+        \end{scriptsize}
+    \end{axis}
+\end{tikzpicture}
+
+Este problema no tiene solución óptima finita.
+\end{example}
+
+
+\end{document}
