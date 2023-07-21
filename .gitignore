@@ -7,4 +7,5 @@
 *.html
 *.xls
 *.xlsx
+*.sqlite
 scratch/
