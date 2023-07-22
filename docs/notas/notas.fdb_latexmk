@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1689734422 "/workspaces/procesos/docs/notas/notas.tex" "/workspaces/procesos/docs/notas/notas.pdf" "notas" 1689734422
+["pdflatex"] 1689993318 "/workspaces/procesos/docs/notas/notas.tex" "/workspaces/procesos/docs/notas/notas.pdf" "notas" 1689993318
   "/etc/texmf/web2c/texmf.cnf" 1687143332 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx9.tfm" 1136768653 1328 5442e22a7072966dbaf88ca900acf3f0 ""
@@ -29,13 +29,13 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1581979058 38841 ce3692aa899bb693b90b87eaa5d4d84e ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1687143417 4770781 1ed1abab22da9c3e2cc82e4db562318b ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1687143468 8255598 e5e1b1d30306d1e0da04ed6a282a800c ""
-  "/workspaces/procesos/docs/notas/notas.aux" 1689734422 139 70597f11bcb94f94994d74c3d91e5b97 ""
-  "/workspaces/procesos/docs/notas/notas.tex" 1689734421 2184 995637a072f7e7bf628229d1d65ea74a ""
-  "notas.aux" 1689734422 139 70597f11bcb94f94994d74c3d91e5b97 "pdflatex"
-  "notas.tex" 1689734421 2184 995637a072f7e7bf628229d1d65ea74a ""
+  "/workspaces/procesos/docs/notas/notas.aux" 1689993318 139 70597f11bcb94f94994d74c3d91e5b97 ""
+  "/workspaces/procesos/docs/notas/notas.tex" 1689993317 2217 28e3c6c43befff060f0f6cb06709fd7e ""
+  "notas.aux" 1689993318 139 70597f11bcb94f94994d74c3d91e5b97 "pdflatex"
+  "notas.tex" 1689993317 2217 28e3c6c43befff060f0f6cb06709fd7e ""
   (generated)
-  "/workspaces/procesos/docs/notas/notas.pdf"
+  "/workspaces/procesos/docs/notas/notas.log"
+  "notas.log"
   "notas.aux"
   "notas.pdf"
-  "notas.log"
-  "/workspaces/procesos/docs/notas/notas.log"
+  "/workspaces/procesos/docs/notas/notas.pdf"
