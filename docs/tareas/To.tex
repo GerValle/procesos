@@ -1,0 +1,45 @@
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{amssymb}
+\setlength{\oddsidemargin}{0.5cm}
+\setlength{\evensidemargin}{0.5cm}
+\setlength{\textwidth}{15cm}
+\setlength{\topmargin}{-2cm}
+
+\begin{document}
+\begin{center}
+    \textsf{\Large Procesos Estocásticos}
+    \par\medskip
+    \textsf{\large Tarea 1}
+\end{center}
+\hrule
+\par\bigskip
+
+\begin{enumerate}
+    \item Considera el conjunto $\Omega = \{a, b, c\}$. Enumera todas las posibles $\sigma$-álgebras en este conjunto.
+    \item Demuestra que la intersección arbitraria de $\sigma$-álgebras es también una $\sigma$-álgebra.
+    \item Si $\mathcal{F}$ es una $\sigma$-álgebra en $\Omega$ y $A$ es un subconjunto de $\Omega$, prueba que la colección $\mathcal{F}_A = \{A \cap F : F \in \mathcal{F}\}$ es una $\sigma$-álgebra en $A$.
+    \item Demuestra que si $\mathcal{E}$ es una $\sigma$-álgebra en $\Gamma$ y $f: \Omega \rightarrow \Gamma$ es una función, entonces la colección $\mathcal{F} = \{ f^{-1}(E) : E \in \mathcal{E} \}$ es una $\sigma$-álgebra en $\Omega$. Hint: demuestra primero que si $E\subset \Gamma$ entonces $f^{-1}(E^c) = (f^{-1}(E))^c$ y que si $\{E_i\}_{I}$ es una colección de subconjuntos de $\Gamma$ enonces  $f^{-1}(\cup_{i\in I} E_i) = \cup_{i\in I} f^{-1}(E_i)$.
+    \item Encuentra un ejemplo que demuestre que la unión de dos $\sigma$-álgebras no es necesariamente una $\sigma$-álgebra.
+    \item Sea $\{A_i\}$ una sucesión de conjuntos en la $\sigma$-álgebra $\mathcal{F}$, demuestra que el límite superior e inferior, definidos como 
+    $$
+        \limsup_{n\rightarrow \infty}A_n = \bigcap_{n=1}^\infty\bigcup_{k=n}^\infty A_k \quad\text{y}\quad \liminf_{n\rightarrow \infty} A_n =      \bigcup_{n=1}^{\infty}\bigcap_{k=n}^\infty A_k
+    $$
+    también están en $\mathcal{F}$.
+    \item Sea $\mathcal{F}$ una $\sigma$-álgebra de subconjuntos de $\Omega$. Demuestra que la colección $\mathcal{F}^c = \{A^c : A \in \mathcal{F}\}$ es una $\sigma$-álgebra en $\Omega$.
+    \item Denotemos con $X$ al número máximo al lanzar un par de dados. ¿Cuál es la $\sigma$-álgebra generada por $X$? Encuentra un conjunto que no esté en esta $\sigma$-álgebra.
+    \item Considera el modelo de precios visto en clase.exhibe la $\sigma$-álgebra generada por el precio de la acción en $t+3$. Encuentra un conjunto que no esté en esta $\sigma$-álgebra.
+    \item Sea $\mathcal{F}$ una $\sigma$-álgebra en $\Omega$. Demuestra que la colección $\mathcal{F}^* = \{A \subset \Omega : A \in \mathcal{F} \text{ o } A^c \in \mathcal{F}\}$ es una $\sigma$-álgebra en $\Omega$.
+    \item Sea $\mathcal{F}$ una $\sigma$-álgebra de conjuntos de $\Omega = [0,1]$ tal que $[\frac{1}{n+1},\frac{1}{n}]\in \mathcal{F}$, para $n=1, 2, \ldots$. Demuestra que:  
+    \begin{enumerate}
+        \item $\{0\} \in \mathcal{F}$.
+        \item $\{\frac{1}{n}:n=2, 3,\ldots\} \in \mathcal{F}$.
+        \item $(\frac{1}{n},1] \in \mathcal{F}$ para todo $n = 1,2,\ldots$.
+        \item $(0,\frac{1}{n}] \in \mathcal{F}$ para todo $n = 1,2,\ldots$.
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}
