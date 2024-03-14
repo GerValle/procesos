@@ -3,7 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage{mathpazo}
-\setlength{\parskip}{1em}
+%\setlength{\parskip}{1em}
 \usepackage{tikz}
 \usetikzlibrary{babel}
 \usepackage{geometry}
@@ -34,7 +34,7 @@
 
 
  \newtheoremstyle{definicion}%
-    {-1pt}%
+    {3pt}%
     {3pt}%
     {}%
     {}%
@@ -75,12 +75,17 @@
 }
 \makeatother
 
-
+%\usepackage{parskip}
 %\usepackage[skip=10pt plus1pt, indent=10pt]{parskip}
+
+%\usepackage{parskip}
+
 
 \begin{document}
 \chapter{Probabilidad} 
     
+
+\texttt{\the\parskip}
 
 El primer paso al proponer un modelo probabilístico consiste en determinar todo aquello que consideramos posible. 
 
