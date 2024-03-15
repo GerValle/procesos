@@ -21,7 +21,7 @@
 
 \newcounter{example}[chapter]
 \newenvironment{example}[1][]{\refstepcounter{example}\par\medskip
-   \noindent\textbf{Ejemplo~\thechapter.\theexample. #1 } \rmfamily\par\medskip}{\medskip}
+   \noindent\textbf{Ejemplo~\thechapter.\theexample. #1 }\par\medskip\hrule \rmfamily\par\medskip}{\medskip\hrule\medskip}
 
 
 \newmdenv[linecolor=red,frametitle=Infobox]{infobox}
@@ -58,6 +58,20 @@
 \newtheorem{propiedad}{Propiedad}[chapter]
 \surroundwithmdframed[linewidth=1pt, roundcorner=10pt, backgroundcolor=gray!10]{propiedad}
 
+\newtheoremstyle{teorema}%
+    {-1pt}%
+    {3pt}%
+    {\itshape}% Fuente del cuerpo
+    {}%
+    {\bfseries}%  Fuente del encabezado
+    {.}%
+    {\newline}%
+    {}%
+\theoremstyle{teorema}
+\newtheorem{teorema}{Teorema}[chapter]
+\surroundwithmdframed[linewidth=1pt, roundcorner=10pt, backgroundcolor=gray!10]{teorema}
+
+
 \makeatletter
 \renewenvironment{proof}[1][\proofname]{\par
     \pushQED{\qed}%
@@ -81,17 +95,13 @@
 \chapter{Probabilidad} 
     
 
-\texttt{\the\parskip}
-
 El primer paso al proponer un modelo probabilístico consiste en determinar todo aquello que consideramos posible. 
 
 \begin{definition}
 Al conjunto de todo aquello que consideramos \emph{posible} se le conoce  como \emph{espacio muestral}. Es costumbre denotar al espacio muestral con $\Omega$. A un elemento $\omega \in \Omega$ se le conoce como \emph{ocurrencia} o \emph{punto muestral}.
 \end{definition}
 
-
-
-Por ejemplo, si lanzamos una moneda, lo mas natural es suponer que la moneda caerá en una de sus dos caras, águila ($A$) o sol ($S$). En esta caso 
+Por ejemplo, si lanzamos una moneda, lo mas natural es suponer que la moneda caerá en una de sus dos caras, águila ($A$) o sol ($S$). En este caso 
 
 $$
 \Omega =\left\{A, S\right\} 
@@ -103,9 +113,7 @@ Si lanzamos un par de dados, el espacio muestral mas lógico sería el conjunto:
 $$
 \Omega = \left\{(i, j): i, j = 1,2,\ldots,6\right\}
 $$
-
 o bien:
-
 $$
 \Omega = \left[
 \begin{matrix}
@@ -131,22 +139,51 @@ $$
 \Omega = [0,\infty)
 $$
 
-  
-
 La manera de definir el espacio muestral es por completo decisión de quien modela el experimento aleatorio.  
 
+\begin{example}\label{ex:1}
 Otro buen ejemplo es el siguiente, supongamos que lanzamos tres monedas si en un lanzamiento sale sol ganamos un peso y si sale águila perdemos un peso. Claramente nos interesa saber cuál será nuestra ganancia (pérdida) total al final de los tres lanzamientos. Empecemos por proponer un espacio muestral:
 
 $$
 \Omega = \left\{\omega = (\nu_1, \nu_2, \nu_3): \nu_i \in\{A,S\}\text{ para } i = 1,2,3 \right\}
 $$
-
-esta propuesta es conveniente para la idea que deseamos desarrollar, sin embargo no es la única ni la mejor. De nuevo, la definición de $\Omega$ depende por completo de las necesidades de quien modela el experimento aleatorio.
+esta propuesta es conveniente para la idea que deseamos desarrollar, sin embargo no es para nada la única. De nuevo, la definición de $\Omega$ depende por completo de las necesidades de quien modela el experimento aleatorio.
 
 Un elemento particular de $\Omega$ es por ejemplo: $\omega = (S,A,S)$. En este escenario, ganamos un peso en el primer lanzamiento, perdimos un peso en el segundo y ganamos uno en el tercero. En total tendríamos una ganancia de 1 peso después de lanzar tres veces la moneda,  si  $\omega = (S,S,S)$ entonces ganamos en los tres lanzamientos y por tanto tendremos 3 pesos al final del juego. En un escenario menos afortunado, si $\omega = (A,S,A)$ entonces habremos perdido en dos de los tres lanzamientos y por tanto nuestra pérdida final será de $-1$ pesos. 
 
+Pongamos un poco de orden y reescribamos $\Omega$ de forma explícita:
+%\begin{align*}
+%        \Omega =  & \left\{\omega_1   = (SSS), \omega_2  = (SSA),\omega_3  = (SAS), \omega_4  = (SAA) \right.\\
+%                  & \left. \omega_5   = (ASS), \omega_6  = (ASA),\omega_7  = (AAS), \omega_8  = (AAA) \right\}
+%\end{align*}
 
+\begin{align*}
+        \Omega =  & \left\{(SSS), (SSA), (SAS), (SAA) \right.\\
+                  & \left. (ASS), (ASA), (AAS), (AAA) \right\}
+\end{align*}
 
+y agrupemos:
+\begin{equation*}
+    \begin{split}
+        A_3 & = \left\{(SSS)\right\}\\
+        A_1 & = \left\{(SSA), (SAS), (ASS)\right\}\\
+        A_{-1} & = \left\{(SAA), (ASA), (AAS)\right\}\\
+        A_{-3} & = \left\{(AAA)\right\}\\
+    \end{split}
+\end{equation*}
+
+Son justamente los casos en $A_3$ donde ganamos un tres pesos, en $A_1$ ganamos un peso, en $A_{-1}$ perdemos un peso y en $A_{-3}$ perdemos tres pesos. Pero podemos hacer aún mas, observemos por ejemplo que:
+$$
+A_3 \cup A_1 = \text{``Casos donde ganamos al menos un peso''}
+$$
+o bien
+$$
+A_3^c = \text{``Perdimos al menos un volado''}
+$$
+Una interpretación parecida podemos darle a cualquier otro subconjunto de $\Omega$ definido a partir de los subconjuntos $A_3$, $A_1$, $A_{-1}$ y $A_{-3}$. 
+\end{example}
+
+La idea mas importante que debemos extraer del ejemplo anterior es la de entender que cada uno de estos subconjuntos representa información, información que puede ser de gran valor. Si este es el caso, sería natural pensar en trabajar con la potencia de $\Omega$ al momento de desarrollar un modelo probabilístico. En algunos casos simples esto es posible, aunque quizás no fuese conveniente, sin embargo en otros casos ni siquiera es posible. Particularmente cuando $\Omega$ es infinito, trabajar con $2^\Omega$ puede conducirnos a situaciones donde no sea posible definir una noción de probabilidad para todos los subconjuntos de $\Omega$. Por esta razón es conveniente trabajar con una colección de subconjuntos de $\Omega$ un poco mas ``controlada'', esta es la idea de la siguiente definición. 
 \begin{definition}[$\sigma$-álgebra]
     Dado un conjunto $\Omega$ decimos que la colección $\mathcal{F}$ de subconjuntos de $\Omega$ es una $\sigma$-\emph{álgebra} si:
     \begin{enumerate}
@@ -159,15 +196,15 @@ Un elemento particular de $\Omega$ es por ejemplo: $\omega = (S,A,S)$. En este e
     \end{enumerate}
 \end{definition}
 \par\noindent
-Al par $(\Omega, \mathcal{F})$  se le conoce como \emph{espacio medible}. A un subconjunto $A\in \mathcal{F}$ lo llamamos \emph{evento}.
+Al par $(\Omega, \mathcal{F})$  se le conoce como \emph{espacio medible}. A un subconjunto $A\in \mathcal{F}$ lo llamamos \emph{evento}. Adicionalmente, decimos que un evento $A$ \emph{ocurre} si después de ejecutar un experimento aleatorio el $\omega$ observado pertenece a $A$.
 
-Es importante subrayar que la unión que presentamos en la definición de $\sigma$-álgebra debe ser una unión \textbf{numerable}. Sin embargo la definición también implica cerradura bajo uniones finitas. Para mostrar esto notemos primero que $\emptyset = \Omega^c \in \mathcal{F}$.  Si $A$ y $B$ son dos subconjuntos en $\mathcal{F}$, construimos la sucesión $\left\{A_i\right\}$ haciendo $A_1 = A$, $A_2 = B$ y $A_i = \emptyset$ para $i= 3,4,\ldots$ de modo  que  $\left\{A_i\right\}\subset \mathcal{F}$ . En consecuencia:
+Es importante subrayar que la unión que presentamos en el inciso 3 de la definición de $\sigma$-álgebra debe ser una unión \textbf{numerable}, uniones arbitrarias de elementos en la $\sigma$-álgebra, no necesariamente pertenecen a ella. Notemos que la definición también implica cerradura bajo uniones finitas. Para mostrar esto notemos primero que $\emptyset = \Omega^c \in \mathcal{F}$.  Ahora, si $A$ y $B$ son dos subconjuntos en $\mathcal{F}$, construimos la sucesión $\left\{A_i\right\}$ haciendo $A_1 = A$, $A_2 = B$ y $A_i = \emptyset$ para $i= 3,4,\ldots$ de modo  que  $\left\{A_i\right\}\subset \mathcal{F}$ . En consecuencia:
 $$
 A \cup B = \bigcup_{i = 1}^\infty A_i \in \mathcal{F}
 $$
 lo cual prueba que una $\sigma$-álgebra también es cerrada bajo uniones finitas. 
 
-Dado un conjunto $\Omega$ la $\sigma$-álgebra de subconjuntos de $\Omega$ mas pequeña que podemos definir es:
+Dado un conjunto $\Omega$, la $\sigma$-álgebra de subconjuntos de $\Omega$ mas pequeña que podemos definir es:
 
 $$
 \mathcal{F} = \left\{\emptyset, \Omega\right\}
@@ -179,12 +216,12 @@ $$
 $$
 es una $\sigma$-álgebra.
 
-La colección de subconjuntos de $\Omega$:
+Un ejemplo un poco mas retador lo encontramos si consideramos la colección de subconjuntos:
 
 $$
 \mathcal{F} = \left\{A\subset \Omega: A \text{ es numerable o } A^c \text{es numerable}\right\}
 $$
-es una $\sigma$-álgebra.
+$\mathcal{F}$ es una $\sigma$-álgebra. Para probar esto debemos verificar que $\mathcal{F}$ cumple con los 3 incisos en la definición de $\sigma$-álgebra, para ello observemos que como $\emptyset$ es numerable entonces $\Omega\in \mathcal{F}$. Por otro lado, es evidente que si $A\in \mathcal{F}$ entonces $A^c\in \mathcal{F}$. Por ultimo, consideremos una sucesión $\{A_i\}$ de subconjuntos en $\mathcal{F}$. Es decir, para toda $i$,  $A_i$ es numerable o bien $A_i^c$ es numerable. Si $A_i$ es numerable para toda $i$ entonces $\cup_iA_i$ es numerable y por tanto $\cup_i A_i\in \mathcal{F}$. Por el contrario, si existe $i$ tal que $A_i$ es no numerable entonces $A_i^c$ es numerable, por lo tanto: $\left(\cup_iA_i\right)^c = \cap_iA_i^c$ si es numerable. En consecuencia $\cup_iA_i\in \mathcal{F}$, con lo cual demostramos que $\mathcal{F}$ es una $\sigma$-álgebra.
 
 
 
@@ -192,7 +229,7 @@ es una $\sigma$-álgebra.
 Dada una colección $\mathcal{C}$ de subconjuntos de $\Omega$, definimos a la $\sigma$-álgebra generada por $\mathcal{C}$ como la $\sigma$-álgebra mas pequeña que contiene a $\mathcal{C}$. A esta $\sigma$-álgebra la denotamos con $\sigma(\mathcal{C})$.    
 \end{definition}
 
-Si $\left\{\mathcal{F}_i\right\}_I$ es una colección de $\sigma$-álgebras, entonces $\cap_I \mathcal{F}_i$ es $\sigma$-álgebra.  Esta afirmación es válida para cualquier colección de $\sigma$-álgebras. La unión de $\sigma$-álgebras no necesariamente nos devuelve otra $\sigma$-álgebra. Esta observación nos conduce a una propiedad directamente relacionada con la definición anterior.
+Si $\left\{\mathcal{F}_i\right\}_I$ es una colección de $\sigma$-álgebras, entonces $\cap_I \mathcal{F}_i$ es $\sigma$-álgebra.  Esta afirmación no es difícil de probar y es válida para cualquier colección de $\sigma$-álgebras. La unión de $\sigma$-álgebras no necesariamente devuelve otra $\sigma$-álgebra. Esta observación nos conduce a una propiedad directamente relacionada con la definición anterior.
 
 \begin{propiedad}
 La $\sigma$-álgebra $\sigma(\mathcal{C})$ generada por la colección $\mathcal{C}$ coincide con la intersección de todas las $\sigma$-álgebras que contienen a la colección $\mathcal{C}$.
@@ -204,7 +241,7 @@ $$
 \bigcap_{\mathcal{H}\in\Xi}\mathcal{H} \subset \sigma(\mathcal{C})
 $$
 
-pero como $\cap_{\mathcal{H}\in \Xi}H$ es $\sigma$-álgebra entonces $\cap_{\mathcal{H}\in\Xi}\mathcal{H} = \sigma(\mathcal{C})$
+pero como $\cap_{\mathcal{H}\in \Xi}\mathcal{H}$ es $\sigma$-álgebra entonces $\sigma(\mathcal{C})\subset\cap_{\mathcal{H}\in\Xi}\mathcal{H}$ y por tanto $\sigma(\mathcal{C})=\cap_{\mathcal{H}\in\Xi}\mathcal{H}$
 \end{proof}
 
 \begin{definition}
@@ -214,7 +251,6 @@ La $\sigma$-álgebra de Borel definida en $\mathbb{R}$ es la $\sigma$-álgebra g
 La idea de la $\sigma$-álgebra de Borel tiene sentido en cualquier espacio topológico sin embargo cuando la definimos en los reales podemos dar descripciones alternativas. Por lo pronto, notemos que todos los intervalos abiertos pertenecen a $\mathcal{B}.$ Pero además, como todo abierto en $\mathbb{R}$ puede ser expresado como unión numerable de intervalos abiertos, concluimos que $\mathcal{B}$ es también generada por los intervalos abiertos. Por otro lado, la cerradura bajo complementos de $\mathcal{B}$ nos garantiza que todo cerrado también está en $\mathcal{B}$, por lo tanto los intervalos cerrados están en $\mathcal{B}$. Particularmente los intervalos cerrados del tipo $(-\infty, x]$ también están en $\mathcal{B}$. De hecho también podemos generar a $\mathcal{B}$ con estos intervalos. La $\sigma$-álgebra de Borel es en realidad una colección muy rica de subconjuntos de $\mathbb{R}$, es sorprendentemente complicado construir un subconjunto de $\mathbb{R}$ que no este en $\mathcal{B}$.  Este ejemplo será de gran importancia en lo sucesivo.
 
 Una de las funciones principales de una $\sigma$-álgebra es la de servir de dominio para una medida de probabilidad:
-
 
 \begin{definition}
 Una función $P:\mathcal{F}\rightarrow [0,1]$  es una medida de probabilidad si:
@@ -226,20 +262,44 @@ Una función $P:\mathcal{F}\rightarrow [0,1]$  es una medida de probabilidad si:
     $$
 \end{enumerate}    
 \end{definition}
-A la tercia $(\Omega, \mathcal{F}, P)$ se le conoce como \emph{espacio de probabilidad}. 
+
+A la tercia $(\Omega, \mathcal{F}, P)$ se le conoce como \emph{espacio de probabilidad}. Hacemos énfasis en que la medida $P$ solo opera sobre subconjuntos de $\Omega$ que esten en $\mathcal{F}$, si $A\subset \Omega$ pero $A\notin \mathcal{F}$, entonces no existe forma de definir una probabilidad sobre $A$.
 
 Es importante notar que la colección del inciso 2 no solo es una colección numerable, es también una colección de disjuntos. 
 
-Ejemplo:
 
-Supongamos que lanzamos un par de dados, el espacio muestral mas natural para este experimento es el conjunto:
+\begin{definition}
+Sea $f:X\rightarrow Y$ y $E\subset Y$. Definimos la \emph{preimagen}  de $E$ como:
+
+$$
+f^{-1}(E) := \left\{x\in X: f(x) \in E\right\}
+$$    
+\end{definition}
+\par\noindent
+
+Dicho de otro modo, la preimagen de un conjunto $E$  son todos aquellos elementos de $X$  que al ser evaluados en la función $f$  van a dar al conjunto $E.$ Esta idea es fundamental en la definición siguiente: 
+
+\begin{definition}[Variable aleatoria]
+Dado un espacio de probabilidad $(\Omega, \mathcal{F}, P)$  decimos que una \emph{variable aleatoria} es una función $X:\Omega \rightarrow \mathbb{R}$ tal que 
+
+$$
+\left\{X \in B\right\} = X^{-1}(B)\in \mathcal{F}
+$$
+para todo $B\in \mathcal{B}$. 
+
+La $\sigma$-álgebra generada por los conjuntos de la forma $X^{-1}(B)$ con $B\in\mathcal{B}$ se conoce como la \emph{$\sigma$-álgebra generada por $X$} y la denotamos con $\sigma(X)$.
+    
+\end{definition}
+
+\begin{example}
+    Supongamos que lanzamos un par de dados, el espacio muestral mas natural para este experimento es el conjunto:
 
 $$
 \Omega = \left\{(i,j): i, i = 1,2,\ldots, 6\right\}
 $$
 
 
-En un espacio muestral finito como este es fácil definir una $\sigma$-álgebra que funcione satisfactoriamente. En este caso basta con hacer $\mathcal{F}= 2^\Omega$ e inmediatamente tenemos un espacio medible $(\Omega, \mathcal{F})$ donde podemos definir la medida de probabilidad:
+En un espacio muestral finito como este es fácil definir una $\sigma$-álgebra que funcione satisfactoriamente. Basta con hacer $\mathcal{F}= 2^\Omega$ e inmediatamente tenemos un espacio medible $(\Omega, \mathcal{F})$ donde podemos definir la medida de probabilidad:
 
 $$
 P(\{(i,j)\}) = 1/36\quad \text{ para } i,j= 1,2,\ldots, 6 
@@ -250,53 +310,44 @@ Notemos que cualquier elemento de $\mathcal{F}$ puede obtenerse mediante operaci
 $$
 \mathcal{C} = \left\{\{(i,j)\}: i,j= 1,2,\ldots,6\right\}
 $$
+Aunque de hecho es incluso mas simple; cualquier elemento de $\mathcal{F}$ puede construirse a través de uniones de conjuntos en $\mathcal{C}$. Observemos que todas las posibles uniones que podemos formar coinciden con el número de subconjuntos de $\mathcal{C}$, es decir $\mathcal{F}$  contiene $2^{36}$ elementos.
 
-de hecho es incluso mas simple; cualquier elemento de $\mathcal{F}$ puede construirse a través de uniones de conjuntos en $\mathcal{C}$. Observemos que todas las posibles uniones que podemos formar coincide con el número de subconjuntos de $\mathcal{C}$ es decir $\mathcal{F}$  contiene $2^{36}$ elementos.
-
-\begin{definition}
-Sea $f:X\rightarrow Y$ y $E\subset Y$. Definimos la \emph{preimagen}  de $E$ como:
-
-$$
-f^{-1}(E) := \left\{x\in X: f(x) \in E\right\}
-$$    
-\end{definition}
-\par\noindent
-dicho de otro modo, la preimagen de un conjunto $E$  son todos aquellos elementos de $X$  que al ser evaluados en la función $f$  van a dar al conjunto $E.$ Esta idea es fundamental en la definición siguiente: 
-
-\begin{definition}[Variable aleatoria]
-Dado un espacio de probabilidad $(\Omega, \mathcal{F}, P)$  decimos que una \emph{variable aleatoria} es una función $X:\Omega \rightarrow \mathbb{R}$ tal que 
-
-$$
-\left\{X \in B\right\} = X^{-1}(B)\in \mathcal{F}
-$$
-
-para todo $B\in \mathcal{B}$. 
-    
-\end{definition}
-
-\begin{example}
-Consideremos la variable aleatoria $X$ que calcula la suma de las caras de dos dados. Tenemos por lo pronto que:    
+Por otro lado consideremos la variable aleatoria $X$ que calcula la suma de las caras de los dos dados. Tenemos por lo pronto que:    
 
 $$
 X:\Omega \rightarrow \{2,\ldots, 12\}\subset \mathbb{R}
 $$
-
 Esta variable aleatoria define la colección de subconjuntos de $\Omega$:
-
 $$
-\mathcal{C} = \left\{ {A}_i,i =2,3\ldots 12\right\}
+\mathcal{D} = \left\{ X^{-1}(i),i =2,3\ldots 12\right\}
 $$
-
 donde 
-
 $$
-A_i = \left\{X=i\right\}
+X^{-1}(i) = \left\{\omega\in\Omega: X(\omega)=i\right\}
 $$
+para $i=2,3\ldots, 12.$  Es decir, $X^{-1}(i)$ es el evento donde la suma de los dados sea igual a $i = 2,3,\ldots, 12$. No es difícil convencerse de que la colección ${\mathcal F}_{+}$ de todas las posibles uniones de elementos en $\mathcal{C}$ es una $\sigma$-álgebra, de hecho $\mathcal{F}_+ = \sigma(\mathcal{D}) = \sigma(X)$. Sin embargo notemos que en este caso el número total de uniones de elementos de $\mathcal{D}$ y en consecuencia el número total de elementos de $\sigma(X)$ es igual a $2^{11}$. Un número bastante menor que los $2^{36}$ elementos que tiene $\mathcal F$.
 
-para $i=2,3\ldots, 12.$  Es decir, $A_i$ es el evento donde la suma de los dados sea igual a $i$. No es difícil convencerse de que la colección ${\mathcal F}_{+}$ de todas las posibles uniones de elementos en $\mathcal{C}$ es una $\sigma$-álgebra. Sin embargo notemos que en este caso el número total de uniones de elementos de $\mathcal C$ y en consecuencia el número total de elementos de $\mathcal F_+$ es igual a $2^{11}$. Un número bastante menor que los $2^{36}$ elementos que tiene $\mathcal F$.
-
-Ambas $\sigma$-álgebras son de utilidad, sin embargo mientras $\mathcal{F}$ contiene toda la información posible que pudiésemos extraer del experimento de lanzar un par de dados, la $\sigma$-álgebra $\mathcal F_{+}$ contiene la información que podemos deducir de observar los valores que puede tomar la variable aleatoria $X$. 
+Ambas $\sigma$-álgebras son de utilidad, sin embargo mientras $\mathcal{F}$ contiene toda la información posible que pudiésemos extraer del experimento de lanzar un par de dados, la $\sigma$-álgebra $\mathcal F_{+}$ contiene la información que se deduce de observar los valores que toma la variable aleatoria $X$. 
 \end{example}
+Aunque no es indispensable para la exposición que queremos hacer en este repaso en el ánimo de conseguir cierta completez ofrecemos la siguiente definición.
+\begin{definition}
+    Dado un espacio de probabilidad $(\Omega, \mathcal{F}, P)$, decimos que la medida de probabilidad $P_X$ definida en el espacio medible $(\mathbb{R}, \mathcal{B})$ como:
+    $$
+    P_X(B) = P\left(X\in B\right)  = P(X^{-1}(B))
+    $$
+    para todo $B\in\mathcal{B}$ es la \emph{distribución} de $X$.
+\end{definition}
+
+De acuerdo con la definición anterior, una variable aleatoria $X$, no solo mapea el conjunto $\Omega$ en los reales, de hecho mapea todo el espacio de probabilidad $(\Omega, \mathcal{F}, P)$ en el espacio de probabilidad $(\mathbb{R}, \mathcal{B}, P_X)$. 
+
+\begin{definition}
+    Dado un espacio de probabilidad $(\Omega, \mathcal{F}, P)$ y una $\sigma$-álgebra $\mathcal{G}\subset\mathcal{F}$. Decimos que $A\in\mathcal{F}$ es \emph{$\mathcal{G}$-medible} si $A\in\mathcal{G}$. 
+
+     A su vez, decimos que la variable aleatoria $X$ es $\mathcal{G}$-medible si $\sigma(X)\subset\mathcal{G}$. 
+\end{definition}
+
+
+
 
 Ejemplo
 
@@ -310,6 +361,256 @@ dS_t & \text{con probabilidad } 1-p\end{cases}
 $$
 
 Un supuesto mas económico que probabilístico es que $u>1$ y $0< d < 1$.  Si $S_{t+1} = uS_t$ entonces observamos un alza de precios, si $S_{t+1} = dS_t$ entonces hemos observado una baja. El modelo puede parecer muy simple a primera vista, sin embargo veremos que al introducir múltiples periodos de observación, el modelo se enriquece de forma considerable. Sin embargo este modelo nos ofrece la posibilidad de estudiar una serie de ideas tanto financieras como probabilísticas, en un ambiente simple y controlado.
+
+\section{Esperanza condicional.}
+
+Sea $X$ una variable aleatoria definida en un espacio de probabilidad $(\Omega, \mathcal{F}, P)$ y  $\mathcal{G}$  una sub $\sigma$-álgebra de $\mathcal{F}$.  Decimos que $X$ es $\mathcal{G}$-*medible* si $\sigma(X)\subset \mathcal{G}$. Esto lo interpretamos diciendo que si conocemos la información de $\mathcal{G}$ entonces conocemos la información de $X$. De este modo, la información en $\mathcal{G}$ es suficiente para determinar el valor de $X$. 
+
+$X$ es independiente de $\mathcal{G}$ si:
+
+$$
+P(A\cap B) = P(A)P(B)
+$$
+
+para todo $A\in \sigma(X)$ y $B\in\mathcal{G}$. Si $X$ es independiente de $\mathcal{G}$ entonces la información de $\mathcal{G}$ es irrelevante para determinar el valor de $X.$ Los casos recién expuestos son los casos extremos, por en el primero la información en $\mathcal{G}$ es suficiente para determinar el valor de $X$ y en el segundo, la información en $\mathcal{G}$ es irrelevante. Existe un caso intermedio: si $X$ y $\mathcal{G}$ no son independientes y  $X$ no es $\mathcal{G}$-medible, entonces la información en $\mathcal{G}$ ayuda a determinar un estimado del valor de $X$ aunque no lo determine del todo. La *esperanza condicional de $X$  dado $\mathcal{G}$* es justamente la herramienta que utilizamos para dar esta estimación.
+
+Consideremos nuevamente nuestro modelo de precios, y recordemos la filtración $\{\mathcal{F}_i\}$ que propusimos, donde: $\mathcal{F_t} = \left\{\emptyset, \Omega\right\}$, $\mathcal{F}_{t+1} = \sigma(\mathcal{C}_1)$, $\mathcal{F}_{t+2} = \sigma(\mathcal{C}_2)$ y $\mathcal{F}_{t+3} = 2^\Omega$.
+
+donde:
+
+ 
+
+$$
+\mathcal{C}_1 = \left\{A_u, A_d\right\}
+$$
+
+con:
+
+
+\begin{align*}
+A_u & = \left\{(u,u,u),(u,u,d),(u,d,u),(u,d,d)\right\} \\
+A_d & = \left\{(d,u,u),(d,u,d),(d,d,u),(d,d,d)\right\} 
+\end{align*}
+
+
+y 
+
+$$
+\mathcal{C}_2= \{A_{uu}, A_{ud}, A_{du}, A_{dd}\}
+$$
+
+con:
+
+
+\begin{align*}
+A_{uu} & = \left\{(u,u,u),(u,u,d)\right\} \\
+A_{ud} & = \left\{(u,d,u),(u,d,d)\right\}\\ 
+A_{du} & = \left\{(d,u,u),(d,u,d)\right\} \\
+A_{dd} & = \left\{(d,d,u),(d,d,d)\right\}
+\end{align*}
+
+
+las $\sigma$-álgebras en la filtración $\left\{\mathcal{F}_{t+i}\right\}$, $i=0,1,2,3$ recogen la información que se deduce de observar las trayectorias del proceso $\omega = (\nu_1, \nu_2, \nu_2)$.  Estas trayectorias de algún modo “cuentan” la historia detallada del proceso, sin embargo no siempre es indispensable conocer cada detalle, consideremos por ejemplo la filtración: $\mathcal{G}_t = \left\{\emptyset, \Omega\right\}$, $\mathcal{G}_{t+1} = \sigma(\mathcal{D}_{t+1})$, $\mathcal{G}_{t+2} = \sigma(\mathcal{D}_{t+2})$ y $\mathcal{G}_{t+3} = \sigma(\mathcal{D}_{t+3})$, donde:
+
+
+\begin{align*}
+\mathcal{D}_{t+1} & = \left\{A_u, A_d\right\}\\
+\mathcal{D}_{t+2} & = \left\{A_{uu}, A_{ud}\cup A_{du}, A_{dd}\right\}\\
+\mathcal{D}_{t+3}&  = \left\{A_{u^3}, A_{u^2d}, A_{ud^2}, A_{d^3}\right\}
+\end{align*}
+
+
+con:
+
+
+\begin{align*}
+A_{u^3} & = \left\{(u,u,u)\right\}\\
+A_{u^2d} & = \left\{(u,u,d),(u,d,u),(d,u,u)\right\}\\ 
+A_{ud^2} & = \left\{(u,d,d),(d,u,d), (d,d,u)\right\} \\
+A_{d^3} & = \left\{(d,d,d)\right\}
+\end{align*}
+
+
+Notemos como ejemplo que 
+
+
+\begin{align*}
+S_{t+3}^{-1}(u^3S_t) & = A_{u^3}\\
+S_{t+3}^{-1}(u^2dS_t) & = A_{u^2d}\\
+S_{t+3}^{-1}(ud^2S_t) & = A_{ud^2}\\
+S_{t+3}^{-1}(d^3S_t) & = A_{d^3}\\ 
+\end{align*}
+
+
+de modo que  $\sigma(S_{t+3}) = \sigma(D_{t+3})$, de hecho: $\mathcal{G}_{t+i} = \sigma(S_{t+i})$ para $i = 0,1,2,3$. Las $\sigma$-algebras $\mathcal{G_{t+i}}$ cuentan la historia desde la observación de los precios $S_{t+i}$ a diferencia  de las $\sigma$-álgebras $\mathcal{F}_{t+i}$ que cuentan la historia de las trayectorias $\omega = (\nu_1, \nu_2, \nu_3)$. De hecho observemos que para $i= 0, 1, 2,3$ tenemos que $\mathcal{G}_{t+i}\subset\mathcal{F}_{t+1}$, lo cual implica que la filtración $\{\mathcal{F}_{t+i}\}$ acumula en cada periodo tanta información o mas que la filtración $\{\mathcal{G}_{t+i}\}$. Esto nos conduce a la siguiente idea.
+
+Dado un espacio de probabilidad filtrado $(\Omega, \mathcal{F}, P, \{\mathcal{F}_{t+i}\})$ decimos que el proceso $\{X_{t+i}\}$ es *adaptable a la filtración* si $\sigma(X_{t+i})\subset \mathcal{F}_{t+i}$ para toda $i$,  es decir si cada $X_{t+i}$ es $\mathcal{F}_{t+i}$-medible. Esto quiere decir que  la información proveída por la filtración $\{\mathcal{F}_{t+i}\}$ es tan rica o mas que la información proveída por el proceso $X_{t+i}$. Si  conocemos la información de $\mathcal{F}_{t+i}$ entonces seremos capaces de determinar el valor de $X_{t+i}$. En nuestro ejemplo el proceso ${S_{t+i}}$ es adaptable a la filtración; $\sigma(S_{t+i})\subset \mathcal{F}_{t+i}$, oséa $S_{t+i}$ es $\mathcal{F}_{t+i}$-medible.
+
+Si bien el proceso $\{S_{t+i}\}$ es adaptado a la filtración y $S_{t+i}$  es $\mathcal{F}_{t+i}$-medible, $S_{t+i+1}$ **no** es $\mathcal{F}_{t+i}$ medible. Por ejemplo, $S_{t+2}$ es $\mathcal{F}_{t+2}$-medible pero $S_{t+3}$ **no** es $\mathcal{F}_{t+2}$-medible, es decir; $\mathcal{F}_{t+2}$ no contiene información suficiente como para determinar el valor de $S_{t+3}$, sin embargo esto no implica que $S_{t+3}$ y $\mathcal{F}_{t+2}$ sean independientes, definitivamente, la información en $\mathcal{F}_{t+2}$ modifica el valor estimado de $S_{t+3}$ aunque no lo determine completamente. En este sentido la esperanza:
+
+$$
+E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right]
+$$
+
+es una variable aleatoria.
+
+De hecho si:
+
+$$
+S_{t+1} =\begin{cases}
+uS_t & \text{con probabilidad }p\\
+dS_t & \text{con probabilidad }1-p\\
+\end{cases}
+$$
+
+entonces:
+
+
+\begin{align*}
+E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](A_{uu}) & = p S_{t+3}(uuu) + (1-p)S_{t+3}(uud)\\
+E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](A_{ud}) & = p S_{t+3}(udu) + (1-p)S_{t+3}(udd)\\
+E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](A_{du}) & = p S_{t+3}(duu) + (1-p)S_{t+3}(dud)\\
+E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](A_{dd}) & = p S_{t+3}(ddu) + (1-p)S_{t+3}(ddd)
+\end{align*}
+
+
+Conociendo la información
+
+
+\begin{align*}
+E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](A_{uu})P(A_{uu}) & = \sum_{\omega \in A_{uu}}S_{t+3}(\omega)P(\{\omega\})\\
+E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](A_{ud})P(A_{ud}) & = \sum_{\omega \in A_{ud}}S_{t+3}(\omega)P(\{\omega\})\\
+E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](A_{du})P(A_{du}) & = \sum_{\omega \in A_{du}}S_{t+3}(\omega)P(\{\omega\})\\
+E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](A_{dd})P(A_{dd}) & = \sum_{\omega \in A_{dd}}S_{t+3}(\omega)P(\{\omega\})\\
+\end{align*}
+
+
+otra forma de escribir estas igualdades es como sigue:
+
+
+\begin{align*}
+\int_{A_{uu}}E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](\omega)dP & = \int_{\omega \in A_{uu}}S_{t+3}(\omega)dP\\
+\int_{A_{ud}}E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](\omega)dP & = \int_{\omega \in A_{ud}}S_{t+3}(\omega)dP\\
+\int_{A_{du}}E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](\omega)dP & = \int_{\omega \in A_{du}}S_{t+3}(\omega)dP\\
+\int_{A_{dd}}E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](\omega)dP & = \int_{\omega \in A_{dd}}S_{t+3}(\omega)dP\\
+\end{align*}
+
+\begin{definition}
+Sea $X$ una variable aleatoria definida en un espacio de probabilidad $(\Omega, \mathcal{F}, P)$. Si $\mathcal{G}$ es una sub $\sigma$-álgebra de $\mathcal{F}$, decimos que la variable aleatoria $E\left[X\vert\mathcal{G}\right]$ es la \emph{esperanza condicional} de $X$ dado $\mathcal{G}$ si
+\begin{enumerate}
+    \item $E\left[X\vert \mathcal{G}\right]$ es $\mathcal{G}$-medible.
+    \item $\int_A E\left[X\vert \mathcal{G}\right]dP = \int_A X dP$
+\end{enumerate}
+para todo $A\in \mathcal{F}$.    
+\end{definition}
+
+Como consecuencia inmediata enunciamos el siguiente teorema se enuncia sin prueba:
+\begin{teorema}
+Sean $X$ y $Y$variables  aleatorias integrables, definidas en un espacio de probabilidad $(\Omega, \mathcal{F},P)$.   Tenemos entonces que:
+\begin{enumerate}
+    \item Si $\mathcal{G}$ es una sub $\sigma$-álgebra de $\mathcal{F}$ entonces:
+        $$
+        E\left[a X + bY +c\vert \mathcal{G}\right] = aE\left[X\vert \mathcal{G}\right] +bE\left[Y\vert \mathcal{G}\right] +c
+        $$
+    \item Si $Y$ es $\mathcal{G}$-medible, entonces $E\left[XY\vert \mathcal{G}\right] = YE\left[X\vert \mathcal{G}\right]$  
+    \item Si $\mathcal{H}\subset\mathcal{G}$ son dos sub $\sigma$-algebras de $\mathcal{F}$  entonces
+        $$
+        E\left[E\left[X\vert \mathcal{G}\right]\vert \mathcal{H}\right] = E\left[X\vert \mathcal{H}\right]
+        $$    
+\end{enumerate}
+
+
+
+\end{teorema}
+
+
+
+
+
+Definición
+
+Un proceso estocástico se denomina estacionario si su distribución de probabilidad no cambia con el tiempo. Es decir, las propiedades estadísticas del proceso son las mismas sin importar el punto de origen. Esto significa que la media, la varianza y la autocorrelación para el proceso estocástico son constantes en el tiempo. En términos más formales, un proceso es estacionario si para cualquier conjunto de tiempos $t_1, t_2, ..., t_n$ y cualquier $h$, la distribución conjunta de $(X_{t_1}, X_{t_2}, ..., X_{t_n})$ es la misma que la de $(X_{t_1+h}, X_{t_2+h}, ..., X_{t_n+h})$.
+
+Notemos que la caminata aleatoria tal como la hemos definido, acumula “saltos” de tamaño 1 o -1 en cada unidad de tiempo 
+
+\chapter{Movimiento Browniano}
+\section{Caminata aleatoria}
+
+Denotamos con $S_{t+i}$ al  precio de un activo al tiempo $t+i$ con $i=0,1,2,\ldots$ de algún modo estamos considerando que el tiempo “presente” es el tiempo $t$, de modo que el precio del activo en $t+i$ para $i>0$ es estocástico. En este contexto  la sucesión $\left\{S_t\right\}$ es un proceso estocástico, para el cual proponemos la dinámica: 
+
+$$
+S_{t+1} = \begin{cases}
+    uS_t & u>1 \\ 
+    dS_t & 0<d<1
+\end{cases}
+$$
+
+una selección común para $u$ y $d$ es:
+\begin{align*}
+    u  & = e^{\sigma \sqrt{\Delta t}}\\
+    d  & = e^{-\sigma \sqrt{\Delta t}}
+\end{align*}
+
+Si definimos la sucesión $\{Z_i\}$ de variables aleatorias independientes con distribución:
+
+$$
+Z_i = \begin{cases} \phantom{-}1 & \text{con probabilidad }p  \\ 
+-1 & \text{con probabilidad }1-p\end{cases}
+$$
+
+para $i = 1,2,3,\ldots$ entonces reescribimos la dinámica de precios como:
+
+$$
+S_{t+1} = S_te^{Z_1\sigma\sqrt{\Delta t}}
+$$
+
+en general:
+
+$$
+S_{t+i} = S_{t+i-1}e^{Z_{i}\sigma\sqrt{\Delta t}}
+$$
+
+de donde se sigue que:
+
+$$
+S_{t+n} = S_{t}e^{\sigma\sqrt{\Delta t}\sum_{i=1}^nZ_i}
+$$
+
+de aquí definimos el proceso $\{Y_i\}$  como:
+
+$$
+Y_n = Y_{n-1} + Z_n
+$$
+
+con la condición inicial $Y_0 = 0$. De modo que:
+
+$$
+Y_n = \sum_{i=1}^n Z_i + Y_0
+$$
+
+El proceso $\{Y_i\}$ es conocido como *caminata aleatoria.* Notemos que si bien la sucesión de variables aleatorias $\{X_i\}$ es una sucesión de variables aleatorias independientes e idénticamente distribuidas, en el caso del proceso $\{Y_i\}$ tenemos una colección de variables aleatorias que si poseen una estructura de correlaciones. Por otro lado, aunque el espacio de estados de $\{Z_i\}$ es el conjunto $\{1,-1\}$ el espacio de estados de $\{Y_i\}$ es $\mathbb{Z}.$ 
+
+En realidad, podemos definir la caminata aleatoria de forma mas general, basta con partir de una colección $\{Z_i\}$ de variables aleatorias independientes e idénticamente distribuidas  y hacer:
+
+$$
+Y_n = \sum_{i=1}^n Z_i + Y_0
+$$
+
+no es indispensable suponer una distribución específica para las variables $\{Z_i\}$ estas pueden tener cualquier distribución, discreta o continua. Sin embargo para el problema que deseamos exponer, seleccionamos la distribución:
+
+$$
+Z_i = \begin{cases} \phantom{-}1 & \text{con probabilidad }1/2  \\ 
+-1 & \text{con probabilidad }1/2\end{cases}
+$$
+
+En este caso decimos que la caminata aleatoria es una \emph{caminata aleatoria simétrica}. Veremos mas tarde el valor de este supuesto.
+
+
+\begin{propiedad}
+    Si $\{X_t\}$ es una caminata aleatoria simétrica, $\{X_t\}$ es un proceso de incrementos independientes.
+\end{propiedad}
+
+\end{document}
 
 \section{Convergencia en probabilidad}
 
@@ -484,251 +785,4 @@ o bien
 $$
 \lim_{m\rightarrow\infty}P\left(\vert X_i-X\vert > 1/m \quad i.o\right) = 0
 $$
-
-\section{Caminata aleatoria}
-
-Denotamos con $S_{t+i}$ al  precio de un activo al tiempo $t+i$ con $i=0,1,2,\ldots$ de algún modo estamos considerando que el tiempo “presente” es el tiempo $t$, de modo que el precio del activo en $t+i$ para $i>0$ es estocástico. En este contexto  la sucesión $\left\{S_t\right\}$ es un proceso estocástico, para el cual proponemos la dinámica: 
-
-$$
-S_{t+1} = \begin{cases}
-    uS_t & u>1 \\ 
-    dS_t & 0<d<1
-\end{cases}
-$$
-
-una selección común para $u$ y $d$ es:
-\begin{align*}
-    u  & = e^{\sigma \sqrt{\Delta t}}\\
-    d  & = e^{-\sigma \sqrt{\Delta t}}
-\end{align*}
-
-Si definimos la sucesión $\{Z_i\}$ de variables aleatorias independientes con distribución:
-
-$$
-Z_i = \begin{cases} \phantom{-}1 & \text{con probabilidad }p  \\ 
--1 & \text{con probabilidad }1-p\end{cases}
-$$
-
-para $i = 1,2,3,\ldots$ entonces reescribimos la dinámica de precios como:
-
-$$
-S_{t+1} = S_te^{Z_1\sigma\sqrt{\Delta t}}
-$$
-
-en general:
-
-$$
-S_{t+i} = S_{t+i-1}e^{Z_{i}\sigma\sqrt{\Delta t}}
-$$
-
-de donde se sigue que:
-
-$$
-S_{t+n} = S_{t}e^{\sigma\sqrt{\Delta t}\sum_{i=1}^nZ_i}
-$$
-
-de aquí definimos el proceso $\{Y_i\}$  como:
-
-$$
-Y_n = Y_{n-1} + Z_n
-$$
-
-con la condición inicial $Y_0 = 0$. De modo que:
-
-$$
-Y_n = \sum_{i=1}^n Z_i + Y_0
-$$
-
-El proceso $\{Y_i\}$ es conocido como *caminata aleatoria.* Notemos que si bien la sucesión de variables aleatorias $\{X_i\}$ es una sucesión de variables aleatorias independientes e idénticamente distribuidas, en el caso del proceso $\{Y_i\}$ tenemos una colección de variables aleatorias que si poseen una estructura de correlaciones. Por otro lado, aunque el espacio de estados de $\{Z_i\}$ es el conjunto $\{1,-1\}$ el espacio de estados de $\{Y_i\}$ es $\mathbb{Z}.$ 
-
-En realidad, podemos definir la caminata aleatoria de forma mas general, basta con partir de una colección $\{Z_i\}$ de variables aleatorias independientes e idénticamente distribuidas  y hacer:
-
-$$
-Y_n = \sum_{i=1}^n Z_i + Y_0
-$$
-
-no es indispensable suponer una distribución específica para las variables $\{Z_i\}$ estas pueden tener cualquier distribución, discreta o continua. Sin embargo para el problema que deseamos exponer, seleccionamos la distribución:
-
-$$
-Z_i = \begin{cases} \phantom{-}1 & \text{con probabilidad }1/2  \\ 
--1 & \text{con probabilidad }1/2\end{cases}
-$$
-
-En este caso decimos que la caminata aleatoria es una *caminata aleatoria simétrica.* Veremos mas tarde el valor de este supuesto.
-
-—
-
-\subsection{Esperanza condicional.}
-
-Sea $X$ una variable aleatoria definida en un espacio de probabilidad $(\Omega, \mathcal{F}, P)$ y  $\mathcal{G}$  una sub $\sigma$-álgebra de $\mathcal{F}$.  Decimos que $X$ es $\mathcal{G}$-*medible* si $\sigma(X)\subset \mathcal{G}$. Esto lo interpretamos diciendo que si conocemos la información de $\mathcal{G}$ entonces conocemos la información de $X$. De este modo, la información en $\mathcal{G}$ es suficiente para determinar el valor de $X$. 
-
-$X$ es independiente de $\mathcal{G}$ si:
-
-$$
-P(A\cap B) = P(A)P(B)
-$$
-
-para todo $A\in \sigma(X)$ y $B\in\mathcal{G}$. Si $X$ es independiente de $\mathcal{G}$ entonces la información de $\mathcal{G}$ es irrelevante para determinar el valor de $X.$ Los casos recién expuestos son los casos extremos, por en el primero la información en $\mathcal{G}$ es suficiente para determinar el valor de $X$ y en el segundo, la información en $\mathcal{G}$ es irrelevante. Existe un caso intermedio: si $X$ y $\mathcal{G}$ no son independientes y  $X$ no es $\mathcal{G}$-medible, entonces la información en $\mathcal{G}$ ayuda a determinar un estimado del valor de $X$ aunque no lo determine del todo. La *esperanza condicional de $X$  dado $\mathcal{G}$* es justamente la herramienta que utilizamos para dar esta estimación.
-
-Consideremos nuevamente nuestro modelo de precios, y recordemos la filtración $\{\mathcal{F}_i\}$ que propusimos, donde: $\mathcal{F_t} = \left\{\emptyset, \Omega\right\}$, $\mathcal{F}_{t+1} = \sigma(\mathcal{C}_1)$, $\mathcal{F}_{t+2} = \sigma(\mathcal{C}_2)$ y $\mathcal{F}_{t+3} = 2^\Omega$.
-
-donde:
-
- 
-
-$$
-\mathcal{C}_1 = \left\{A_u, A_d\right\}
-$$
-
-con:
-
-
-\begin{align*}
-A_u & = \left\{(u,u,u),(u,u,d),(u,d,u),(u,d,d)\right\} \\
-A_d & = \left\{(d,u,u),(d,u,d),(d,d,u),(d,d,d)\right\} 
-\end{align*}
-
-
-y 
-
-$$
-\mathcal{C}_2= \{A_{uu}, A_{ud}, A_{du}, A_{dd}\}
-$$
-
-con:
-
-
-\begin{align*}
-A_{uu} & = \left\{(u,u,u),(u,u,d)\right\} \\
-A_{ud} & = \left\{(u,d,u),(u,d,d)\right\}\\ 
-A_{du} & = \left\{(d,u,u),(d,u,d)\right\} \\
-A_{dd} & = \left\{(d,d,u),(d,d,d)\right\}
-\end{align*}
-
-
-las $\sigma$-álgebras en la filtración $\left\{\mathcal{F}_{t+i}\right\}$, $i=0,1,2,3$ recogen la información que se deduce de observar las trayectorias del proceso $\omega = (\nu_1, \nu_2, \nu_2)$.  Estas trayectorias de algún modo “cuentan” la historia detallada del proceso, sin embargo no siempre es indispensable conocer cada detalle, consideremos por ejemplo la filtración: $\mathcal{G}_t = \left\{\emptyset, \Omega\right\}$, $\mathcal{G}_{t+1} = \sigma(\mathcal{D}_{t+1})$, $\mathcal{G}_{t+2} = \sigma(\mathcal{D}_{t+2})$ y $\mathcal{G}_{t+3} = \sigma(\mathcal{D}_{t+3})$, donde:
-
-
-\begin{align*}
-\mathcal{D}_{t+1} & = \left\{A_u, A_d\right\}\\
-\mathcal{D}_{t+2} & = \left\{A_{uu}, A_{ud}\cup A_{du}, A_{dd}\right\}\\
-\mathcal{D}_{t+3}&  = \left\{A_{u^3}, A_{u^2d}, A_{ud^2}, A_{d^3}\right\}
-\end{align*}
-
-
-con:
-
-
-\begin{align*}
-A_{u^3} & = \left\{(u,u,u)\right\}\\
-A_{u^2d} & = \left\{(u,u,d),(u,d,u),(d,u,u)\right\}\\ 
-A_{ud^2} & = \left\{(u,d,d),(d,u,d), (d,d,u)\right\} \\
-A_{d^3} & = \left\{(d,d,d)\right\}
-\end{align*}
-
-
-Notemos como ejemplo que 
-
-
-\begin{align*}
-S_{t+3}^{-1}(u^3S_t) & = A_{u^3}\\
-S_{t+3}^{-1}(u^2dS_t) & = A_{u^2d}\\
-S_{t+3}^{-1}(ud^2S_t) & = A_{ud^2}\\
-S_{t+3}^{-1}(d^3S_t) & = A_{d^3}\\ 
-\end{align*}
-
-
-de modo que  $\sigma(S_{t+3}) = \sigma(D_{t+3})$, de hecho: $\mathcal{G}_{t+i} = \sigma(S_{t+i})$ para $i = 0,1,2,3$. Las $\sigma$-algebras $\mathcal{G_{t+i}}$ cuentan la historia desde la observación de los precios $S_{t+i}$ a diferencia  de las $\sigma$-álgebras $\mathcal{F}_{t+i}$ que cuentan la historia de las trayectorias $\omega = (\nu_1, \nu_2, \nu_3)$. De hecho observemos que para $i= 0, 1, 2,3$ tenemos que $\mathcal{G}_{t+i}\subset\mathcal{F}_{t+1}$, lo cual implica que la filtración $\{\mathcal{F}_{t+i}\}$ acumula en cada periodo tanta información o mas que la filtración $\{\mathcal{G}_{t+i}\}$. Esto nos conduce a la siguiente idea.
-
-Dado un espacio de probabilidad filtrado $(\Omega, \mathcal{F}, P, \{\mathcal{F}_{t+i}\})$ decimos que el proceso $\{X_{t+i}\}$ es *adaptable a la filtración* si $\sigma(X_{t+i})\subset \mathcal{F}_{t+i}$ para toda $i$,  es decir si cada $X_{t+i}$ es $\mathcal{F}_{t+i}$-medible. Esto quiere decir que  la información proveída por la filtración $\{\mathcal{F}_{t+i}\}$ es tan rica o mas que la información proveída por el proceso $X_{t+i}$. Si  conocemos la información de $\mathcal{F}_{t+i}$ entonces seremos capaces de determinar el valor de $X_{t+i}$. En nuestro ejemplo el proceso ${S_{t+i}}$ es adaptable a la filtración; $\sigma(S_{t+i})\subset \mathcal{F}_{t+i}$, oséa $S_{t+i}$ es $\mathcal{F}_{t+i}$-medible.
-
-Si bien el proceso $\{S_{t+i}\}$ es adaptado a la filtración y $S_{t+i}$  es $\mathcal{F}_{t+i}$-medible, $S_{t+i+1}$ **no** es $\mathcal{F}_{t+i}$ medible. Por ejemplo, $S_{t+2}$ es $\mathcal{F}_{t+2}$-medible pero $S_{t+3}$ **no** es $\mathcal{F}_{t+2}$-medible, es decir; $\mathcal{F}_{t+2}$ no contiene información suficiente como para determinar el valor de $S_{t+3}$, sin embargo esto no implica que $S_{t+3}$ y $\mathcal{F}_{t+2}$ sean independientes, definitivamente, la información en $\mathcal{F}_{t+2}$ modifica el valor estimado de $S_{t+3}$ aunque no lo determine completamente. En este sentido la esperanza:
-
-$$
-E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right]
-$$
-
-es una variable aleatoria.
-
-De hecho si:
-
-$$
-S_{t+1} =\begin{cases}
-uS_t & \text{con probabilidad }p\\
-dS_t & \text{con probabilidad }1-p\\
-\end{cases}
-$$
-
-entonces:
-
-
-\begin{align*}
-E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](A_{uu}) & = p S_{t+3}(uuu) + (1-p)S_{t+3}(uud)\\
-E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](A_{ud}) & = p S_{t+3}(udu) + (1-p)S_{t+3}(udd)\\
-E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](A_{du}) & = p S_{t+3}(duu) + (1-p)S_{t+3}(dud)\\
-E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](A_{dd}) & = p S_{t+3}(ddu) + (1-p)S_{t+3}(ddd)
-\end{align*}
-
-
-Conociendo la información
-
-
-\begin{align*}
-E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](A_{uu})P(A_{uu}) & = \sum_{\omega \in A_{uu}}S_{t+3}(\omega)P(\{\omega\})\\
-E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](A_{ud})P(A_{ud}) & = \sum_{\omega \in A_{ud}}S_{t+3}(\omega)P(\{\omega\})\\
-E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](A_{du})P(A_{du}) & = \sum_{\omega \in A_{du}}S_{t+3}(\omega)P(\{\omega\})\\
-E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](A_{dd})P(A_{dd}) & = \sum_{\omega \in A_{dd}}S_{t+3}(\omega)P(\{\omega\})\\
-\end{align*}
-
-
-otra forma de escribir estas igualdades es como sigue:
-
-
-\begin{align*}
-\int_{A_{uu}}E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](\omega)dP & = \int_{\omega \in A_{uu}}S_{t+3}(\omega)dP\\
-\int_{A_{ud}}E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](\omega)dP & = \int_{\omega \in A_{ud}}S_{t+3}(\omega)dP\\
-\int_{A_{du}}E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](\omega)dP & = \int_{\omega \in A_{du}}S_{t+3}(\omega)dP\\
-\int_{A_{dd}}E\left[S_{t+3}\vert \mathcal{F}_{t+2}\right](\omega)dP & = \int_{\omega \in A_{dd}}S_{t+3}(\omega)dP\\
-\end{align*}
-
-
-Definición
-
-Sea $X$ una variable aleatoria definida en un espacio de probabilidad $(\Omega, \mathcal{F}, P)$. Si $\mathcal{G}$ es una sub $\sigma$-álgebra de $\mathcal{F}$, decimos que la variable aleatoria $E\left[X\vert\mathcal{G}\right]$ es la *esperanza condicional* de $X$ dado $\mathcal{G}$ si
-
-1. $E\left[X\vert \mathcal{G}\right]$ es $\mathcal{G}$-medible.
-2. $\int_A E\left[X\vert \mathcal{G}\right]dP = \int_A E\left[X\vert \mathcal{G}\right]dP$
-
-para todo 
-
-Una consecuencia inmediata
-
-El siguiente teorema se enuncia sin prueba:
-
-Sean $X$ y $Y$variables  aleatorias integrables, definidas en un espacio de probabilidad $(\Omega, \mathcal{F},P)$.   Tenemos entonces que:
-
-1. Si $\mathcal{G}$ es una sub $\sigma$-álgebra de $\mathcal{F}$ entonces:
-
-$$
-E\left[a X + bY +c\vert \mathcal{G}\right] = aE\left[X\vert \mathcal{G}\right] +bE\left[Y\vert \mathcal{G}\right] +c
-$$
-
-1. Si $Y$ es $\mathcal{G}$-medible, entonces $E\left[XY\vert \mathcal{G}\right] = YE\left[X\vert \mathcal{G}\right]$  
-2. Si $\mathcal{H}\subset\mathcal{G}$ son dos sub $\sigma$-algebras de $\mathcal{F}$  entonces
-
-$$
-E\left[E\left[X\vert \mathcal{G}\right]\vert \mathcal{H}\right] = E\left[X\vert \mathcal{H}\right]
-$$
-
-
-
-Definición
-
-Un proceso estocástico se denomina estacionario si su distribución de probabilidad no cambia con el tiempo. Es decir, las propiedades estadísticas del proceso son las mismas sin importar el punto de origen. Esto significa que la media, la varianza y la autocorrelación para el proceso estocástico son constantes en el tiempo. En términos más formales, un proceso es estacionario si para cualquier conjunto de tiempos $t_1, t_2, ..., t_n$ y cualquier $h$, la distribución conjunta de $(X_{t_1}, X_{t_2}, ..., X_{t_n})$ es la misma que la de $(X_{t_1+h}, X_{t_2+h}, ..., X_{t_n+h})$.
-
-Notemos que la caminata aleatoria tal como la hemos definido, acumula “saltos” de tamaño 1 o -1 en cada unidad de tiempo 
-
-
-\end{document}
-
 
