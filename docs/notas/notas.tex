@@ -2,6 +2,7 @@
 \usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath, amssymb, amsthm}
+\usepackage{theoremref}
 \usepackage{mathpazo}
 %\setlength{\parskip}{1em}
 \usepackage{tikz}
@@ -84,6 +85,7 @@
     \popQED\endtrivlist\@endpefalse
 }
 \makeatother
+\decimalpoint
 
 %\usepackage{parskip}
 %\usepackage[skip=10pt plus1pt, indent=10pt]{parskip}
@@ -498,7 +500,7 @@ Sea $X$ una variable aleatoria definida en un espacio de probabilidad $(\Omega, 
 para todo $A\in \mathcal{F}$.    
 \end{definition}
 
-Como consecuencia inmediata enunciamos el siguiente teorema se enuncia sin prueba:
+Como consecuencia inmediata enunciamos el siguiente teorema que se enuncia sin prueba:
 \begin{teorema}
 Sean $X$ y $Y$variables  aleatorias integrables, definidas en un espacio de probabilidad $(\Omega, \mathcal{F},P)$.   Tenemos entonces que:
 \begin{enumerate}
@@ -512,20 +514,43 @@ Sean $X$ y $Y$variables  aleatorias integrables, definidas en un espacio de prob
         E\left[E\left[X\vert \mathcal{G}\right]\vert \mathcal{H}\right] = E\left[X\vert \mathcal{H}\right]
         $$    
 \end{enumerate}
-
-
-
 \end{teorema}
 
+El inciso 1. del teorema anterior exhibe una propiedad que esperábamos; la esperanza condicional es un operador lineal.  El inciso 2. tiene una interpretación bastante natural, si $Y$ es $\mathcal{G}$-medible, entonces el conocimiento de $\mathcal{G}$ determina el valor de $Y$, esto nos permite tratar a la variable $Y$ como si fuera una constante y sale de la esperanza como si en verdad lo fuera. A esta propiedad se le suele conocer como ``sacar la que es conocido''. El inciso 3. lo podemos interpretar diciendo que dada la información en $\mathcal{H}$, la esperanza condicional $E[X\vert \mathcal{G}]$ es un buen estimador de $X$.
 
+A continuación ofrecemos una definición que por el momento no exploraremos, pero que pronto será una de nuestras herramientas mas importantes.
+\begin{definition}
+    Se $\{X_t\}$ un proceso estocástico definido en el espacio de probabilidad filtrado: $(\Omega, \mathcal{F}, P, \{\mathcal{F}_t\})$. Decimos que $\{X_t\}$ es una \emph{martingala} si:
+    $$
+    E\left[X_t\vert \mathcal{F}_s\right] = X_s
+    $$
+    para toda $s\leq t$.
+\end{definition}
+La propiedad de martingala se suele reexpresar diciendo que dada la información al tiempo $s\leq t$, el mejor estimado para $X_t$ es el valor conocido del proceso al tiempo $s$. El determinar si un proceso estocático es una martingala o no, es una manera muy importante de clasificar a un proceso aunque claro esta no es la única forma de hacerlo. Otra característica que distingue a un proceso estocástico, la encontramos en la definición a continuación:
 
+\begin{definition}
+Decimos que el proceso estocástico $\{X_t\}$ es \emph{estacionario} si para cualquier colección de tiempos $t_1, t_2, \ldots, t_n$ y cualquier $h$, la distribución conjunta de:
+$$
+(X_{t_1}, X_{t_2}, \ldots, X_{t_n}) \quad\text{ y }\quad (X_{t_1+h}, X_{t_2+h}, \ldots, X_{t_n+h})
+$$
+es la misma.
+\end{definition}
 
+Dicho de otro modo, un proceso estocástico es estacionario si no importa el momento del tiempo en el cual lo observamos, siempre y cuando lo observemos a lo largo de periodos de tiempo de la misma longitud. 
 
-Definición
-
-Un proceso estocástico se denomina estacionario si su distribución de probabilidad no cambia con el tiempo. Es decir, las propiedades estadísticas del proceso son las mismas sin importar el punto de origen. Esto significa que la media, la varianza y la autocorrelación para el proceso estocástico son constantes en el tiempo. En términos más formales, un proceso es estacionario si para cualquier conjunto de tiempos $t_1, t_2, ..., t_n$ y cualquier $h$, la distribución conjunta de $(X_{t_1}, X_{t_2}, ..., X_{t_n})$ es la misma que la de $(X_{t_1+h}, X_{t_2+h}, ..., X_{t_n+h})$.
-
-Notemos que la caminata aleatoria tal como la hemos definido, acumula “saltos” de tamaño 1 o -1 en cada unidad de tiempo 
+Sea $\{X_t\}$ un proceso estocástico, a la diferencia:
+$$
+X_t-X_s
+$$
+se le conoce como un \emph{incremento}. Este sencillo concepto nos conduce a la siguiente definición:
+ \begin{definition}
+     Decimos que un proceso estocástico $\{X_t\}$ es de \emph{incrementos independientes} si
+     $$
+     X_{t_4}- X_{t_3} \quad\text{ y }\quad X_{t_2}-X_{t_1}
+     $$
+     son independientes para toda $t_1 \leq t_2 < t_3\leq t_4$.
+ \end{definition}
+ Otra forma de decir que un proceso es de incrementos independientes es decir que los incrementos del proceso sobre intervalos no traslapados, son independientes.
 
 \chapter{Movimiento Browniano}
 \section{Caminata aleatoria}
@@ -538,7 +563,6 @@ S_{t+1} = \begin{cases}
     dS_t & 0<d<1
 \end{cases}
 $$
-
 una selección común para $u$ y $d$ es:
 \begin{align*}
     u  & = e^{\sigma \sqrt{\Delta t}}\\
@@ -551,46 +575,35 @@ $$
 Z_i = \begin{cases} \phantom{-}1 & \text{con probabilidad }p  \\ 
 -1 & \text{con probabilidad }1-p\end{cases}
 $$
-
-para $i = 1,2,3,\ldots$ entonces reescribimos la dinámica de precios como:
-
+para $i = 1,2,3,\ldots$, reescribimos la dinámica de precios como:
 $$
 S_{t+1} = S_te^{Z_1\sigma\sqrt{\Delta t}}
 $$
-
 en general:
-
 $$
 S_{t+i} = S_{t+i-1}e^{Z_{i}\sigma\sqrt{\Delta t}}
 $$
-
 de donde se sigue que:
-
 $$
 S_{t+n} = S_{t}e^{\sigma\sqrt{\Delta t}\sum_{i=1}^nZ_i}
 $$
-
-de aquí definimos el proceso $\{Y_i\}$  como:
+de aquí definimos el proceso $\{X_i\}$  como:
+$$
+X_n = X_{n-1} + Z_n
+$$
+con la condición inicial $X_0 = 0$. De modo que:
 
 $$
-Y_n = Y_{n-1} + Z_n
+X_n = \sum_{i=1}^n Z_i + X_0
 $$
 
-con la condición inicial $Y_0 = 0$. De modo que:
-
-$$
-Y_n = \sum_{i=1}^n Z_i + Y_0
-$$
-
-El proceso $\{Y_i\}$ es conocido como *caminata aleatoria.* Notemos que si bien la sucesión de variables aleatorias $\{X_i\}$ es una sucesión de variables aleatorias independientes e idénticamente distribuidas, en el caso del proceso $\{Y_i\}$ tenemos una colección de variables aleatorias que si poseen una estructura de correlaciones. Por otro lado, aunque el espacio de estados de $\{Z_i\}$ es el conjunto $\{1,-1\}$ el espacio de estados de $\{Y_i\}$ es $\mathbb{Z}.$ 
+El proceso $\{X_i\}$ es conocido como \emph{caminata aleatoria}. Notemos que si bien la sucesión de variables aleatorias $\{Z_i\}$ es una sucesión de variables aleatorias independientes e idénticamente distribuidas, el proceso $\{X_i\}$ es una colección de variables aleatorias que si poseen una estructura de correlaciones. Por otro lado, aunque el espacio de estados de $\{Z_i\}$ es el conjunto $\{1,-1\}$ el espacio de estados de $\{X_i\}$ es $\mathbb{Z}$. 
 
 En realidad, podemos definir la caminata aleatoria de forma mas general, basta con partir de una colección $\{Z_i\}$ de variables aleatorias independientes e idénticamente distribuidas  y hacer:
-
 $$
-Y_n = \sum_{i=1}^n Z_i + Y_0
+X_n = \sum_{i=1}^n Z_i + X_0
 $$
-
-no es indispensable suponer una distribución específica para las variables $\{Z_i\}$ estas pueden tener cualquier distribución, discreta o continua. Sin embargo para el problema que deseamos exponer, seleccionamos la distribución:
+Inclusive podemos suponer que $X_0$ es tambien una variable aleatoria, de modo que la caminata aleatoria tendría además una distribución inicial: $P(X_0 = x)$. No es indispensable suponer una distribución específica para las variables $\{Z_i\}$, estas pueden tener cualquier distribución, discreta o continua. Sin embargo para el problema que deseamos exponer, seleccionamos la distribución:
 
 $$
 Z_i = \begin{cases} \phantom{-}1 & \text{con probabilidad }1/2  \\ 
@@ -601,9 +614,216 @@ En este caso decimos que la caminata aleatoria es una \emph{caminata aleatoria s
 
 
 \begin{propiedad}
-    Si $\{X_t\}$ es una caminata aleatoria simétrica, $\{X_t\}$ es un proceso de incrementos independientes.
+    Sea $\{X_n\}$ es una caminata aleatoria simétrica, $\{X_n\}$ es un proceso de incrementos independientes.
 \end{propiedad}
+\begin{proof}
+    Sea $\{X_n\}$ es una caminata aleatoria definida como:
+    $$
+    X_n = \sum_{i=1}^n Z_n+X_0 
+    $$
+    con $X_0= 0$. Para $m>n$ escribimos el incremento del proceso de $n$ a $m$ como:
+    $$
+    X_m - X_n = \sum_{n+1}^m Z_i
+    $$
+De este modo para $t_1\leq t_2<t_3\leq t_4$ tenemos que:
+\begin{equation}
+    X_{t_4} - X_{t_3} = \sum_{t_3+1}^{t_4} Z_i
+    \label{incr:1}
+\end{equation}
+y
+\begin{equation}
+    X_{t_2} - X_{t_1} = \sum_{t_1+1}^{t_2} Z_i    
+    \label{incr:2}
+\end{equation}
+La sumas en (\ref{incr:1}) y (\ref{incr:2}) son sumas de variables aleatorias independientes y  no tienen términos en común, por lo tanto $X_{t_4} - X_{t_3}$ y $X_{t_2}-X_{t_1}$ son independientes.
+\end{proof}
+La prueba que recién presentamos no requirió del supuesto de que la caminata aleatoria fuese simétrica, de hecho la propiedad es válida para cualquier caminata aleatoria, sin embargo queremos hacer  énfasis en la caminata aleatoria simétrica ya que es la que estaremos trabajando en lo sucesivo. En la siguiente propiedad si hacemos uso de este supuesto:
+\begin{propiedad}
+    Si $\{X_n\}$ es una caminata aleatoria simétrica, entonces 
+    \begin{equation}
+        E[X_t-X_s] = 0
+        \label{rw:1}
+    \end{equation}
+y
+    \begin{equation}
+        Var\left(X_t-X_s\right) = t-s
+        \label{rw:2}
+    \end{equation}
+\end{propiedad}
+\begin{proof}
+    Para demostrar (\ref{rw:1}) recordemos que:
+    $$
+    X_t-X_s = \sum_{s+1}^t Z_i
+    $$
+    por lo tanto:
+    $$
+    E\left[X_t-X_s\right] = \sum_{s+1}^t E[Z_i]
+    $$
+    pero:
+    $$
+    E[Z_i] = \frac{1}{2}\cdot 1 + \frac{1}{2}\cdot -1 = 0
+    $$
+    para toda $i$. Por lo tanto $E[X_t-X_s] = 0$.
 
+    Por otro lado, como las variables $\{Z_i\}$ son independientes:
+    $$
+    Var\left[X_t-X_s \right] = \sum_{s+1}^t Var(Z_i)
+    $$
+    pero:
+    $$
+    Var(Z_i) = \frac{1}{2}(1)^2 + \frac{1}{2}(-1)^2 = 1
+    $$
+    por lo tanto:
+    $$
+    Var\left(X_t-X_s\right) = \sum_{s+1}^t 1 = t-s
+    $$
+\end{proof}
+
+
+\begin{propiedad}
+    La caminata aleatoria simétrica $\{X_n\}$ adaptada a la filtración, es una martingala.
+\end{propiedad}
+\begin{proof}
+    La demostración es directa, para $s\leq t$
+    \begin{equation*}
+        \begin{split}
+            E\left[X_t\vert \mathcal{F}_s\right] & = E\left[X_t-X_s + X_s\vert\mathcal{F}_s\right]\\
+                                                 & = E\left[X_t-X_s\vert\mathcal{F}_s\right] + E\left[X_s\vert\mathcal{F}_s\right]\\
+                                                 & = E\left[X_t-X_s\right] + E\left[X_s\vert\mathcal{F}_s\right]\\
+                                                 & = X_s
+        \end{split}
+    \end{equation*}
+\end{proof}
+En la demostración anterior usamos la linealidad de la esperanza condicional en la segunda igualdad. En la tercera ocupamos el hecho de que la caminata aleatoria es de incrementos independientes y en la cuarta usamos el hecho de que $E[X_t-X_s] = 0$ junto con el hecho de que $\left\{X_n\right\}$ es un proceso adaptado a la filtración y por tanto $X_s$ es $\mathcal{F}_s$-medible.
+\begin{definition}\thlabel{def:varquad:1}
+    Sea $\{X_t\}$ un proceso estocástico definido en un espacio de probabilidad filtrado $(\Omega, \mathcal{F}, P, \left\{\mathcal{F}_t\right\})$. Consideremos la partición $s,s+1, \ldots, t-1, t $  del intervalo $[s, t]$. Definimos la \emph{variación cuadrática} de $\{X_t\}$ a lo largo de $[s,t]$ como:
+    \begin{equation}
+        \left\langle X_t, X_t\right\rangle(t-s) = \sum_{i=s+1}^t \left(X_{i} - X_{i-1}\right)^2
+        \label{varquad:1}
+    \end{equation}
+\end{definition}
+El siguiente teorema es resultado inmediato de esta definición:
+\begin{teorema}
+    Si $\left\{X_t\right\}$ es una caminata aleatoria simétrica, entonces:
+        \begin{equation}
+        \left\langle X_t, X_t\right\rangle(t-s) = t-s
+        \label{varquad:rw}
+    \end{equation}
+\end{teorema}
+\begin{proof}
+    Esto es fácil de probar si observamos que 
+    $$
+    \left(X_{i} - X_{i-1}\right)^2  = 1
+    $$
+    para todo $i$. De modo que:
+    \begin{equation*}
+    \begin{split}
+        \left\langle X_t, X_t\right\rangle(t-s) & = \sum_{i=s+1}^t \left(X_{i} - X_{i-1}\right)^2 \\
+                                                & = \sum_{i=s+1}^t 1 \\
+                                                & = t-s
+    \end{split} 
+    \end{equation*}
+\end{proof}
+Notemos algunos detalles, la definición (\ref{def:varquad:1}) es en realidad una definición preliminar, sirve para nuestro propósito de definir una variación cuadrática para una caminata aleatoria simétrica, sin embargo una definición mas general será necesaria mas adelante. En esta definción en realidad estamos echando mano del hecho de que $(X_i-X_{i-1})^2 = 1$ para toda $i$ lo cual implica que la suma:
+$$
+\sum_{i=s+1}^t \left(X_{i} - X_{i-1}\right)^2  = t-s
+$$
+independientemente de la trayectoria. Si este no fuera el caso, entonces esta suma sería una variable aleatoria y la definición que propusimos sería insuficiente.  Por otro lado,  definimos la partición $\Pi = \{s, s+1, \ldots, t-1, t\}$ sobre el intervalo $[s,t]$ donde el proceso $\{X_t\}$ registra un salto en cada momento del tiempo $t\in \Pi$. En un modelo mas general, tendría sentido definir una partición del intervalo $[s, t]$ que fuera cada vez mas fina y calcular la variación cuadrática en ese contexto. Un paso en este sentido lo damos con la siguiente definición: 
+\begin{definition}\thlabel{def:scaled_rw}
+    Sea $\{X_n\}$ una caminata aleatoria simétrica. Definimos la \emph{caminata aleatoria escalada} $\{W^{(n)}_t\}$ como:
+    \begin{equation}
+        W^{(n)}_t = \frac{1}{\sqrt{n}} X_{nt} 
+        \label{eq:scaled_rw}
+    \end{equation}
+\end{definition}
+La caminata aleatoria escalada  ``acelera'' a la caminata aleatoria simétrica. Una caminata aleatoria simétrica registra un solo salto de tamaño 1 por unidad de tiempo. La caminata aleatoria escalada registra $n$ saltos por unidad de tiempo de tamaño $1/\sqrt{n}$. Por ejemplo, si $n= 100$ entonces cada salto de la caminata aleatoria escalada será de tamaño $1/10$. Al tiempo $t = 0.3$, la variable $W_{0.3}^{(100)}$ habrá registrado $0.3\times 100 = 30$ saltos de longitud $1/10$. Mientras que la diferencia $W^{(100)}_{0.7} - W^{(100)}_{0.2}$ registra los $(0.7-0.2)\times 100 = 30$ saltos que hay entre el tiempo $0.7$ y $0.2$ de longintud $1/\sqrt{10}$. En general la diferencia $W^{(n)}_t-W^{(n)}_t$, registra los $(t-s)\times n$ saltos de tamaño $1/\sqrt{n}$ que existen entre el tiempo $t$ y el tiempo $s$.
+Observemos que:
+\begin{equation*}
+    \begin{split}
+        E\left[W^{(n)}_t-W^{(n)}_s\right] & = E\left[\sum_{i= 1}^{n(t-s)}W_{s+i/n}^{(n)} - W_{s+(i-1)/n}^{(n)}\right]\\
+                                     & = E\left[\frac{1}{\sqrt{n}}\sum_{i= 1}^{n(t-s)}Z_{s+i}\right]\\
+                                     & = \frac{1}{\sqrt{n}}\sum_{i= 1}^{n(t-s)}E\left[Z_{s+i}\right]\\
+                                     & = 0
+    \end{split}
+\end{equation*}
+de manera análoga:
+\begin{equation*}
+    \begin{split}
+        Var\left(W^{(n)}_t-W^{(n)}_s\right) & = Var\left(\sum_{i= 1}^{n(t-s)}W_{s+i/n}^{(n)} - W_{s+(i-1)/n}^{(n)}\right)\\
+                                     & = Var\left(\frac{1}{\sqrt{n}}\sum_{i= 1}^{n(t-s)}Z_{s+i}\right)\\
+                                     & = \frac{1}{n}\sum_{i= 1}^{n(t-s)}Var\left(Z_{s+i}\right)\\
+                                     & = \frac{n(t-s)}{n}\\
+                                     &= t-s
+    \end{split}
+\end{equation*}
+Finalmente, la variación cuadrática sería
+\begin{equation*}
+    \begin{split}
+        \left\langle W^{(n)}_t, W^{(n)}_t\right\rangle(t-s) & = \sum_{i= 1}^{n(t-s)}\left(W_{s+i/n}^{(n)} - W_{s+(i-1)/n}^{(n)}\right)^2\\
+                                     & = \frac{1}{n}\sum_{i= 1}^{n(t-s)}Z_{s+i}^2\\
+                                     & = \frac{1}{n}\sum_{i= 1}^{n(t-s)}1\\
+                                     & = \frac{n(t-s)}{n}\\
+                                     &= t-s
+    \end{split}
+\end{equation*}
+El objetivo con la caminata aleatoria escalada, es hacer que $n\rightarrow\infty$, de modo que cada vez existan mas y mas saltos por unidad de tiempo.
+
+Al tiempo $t$, la caminata aleatoria escalda $W_{t}^{(n)}$ habrá regristrado $nt$ saltos de logitud $1/\sqrt{n}$ de estos, $i$ podrían ser  “hacia arriba” y $nt-i$  “hacia abajo”. En tal caso:
+
+$$
+W_{t}^{(n)} =\frac{1}{\sqrt{n}}X_{nt} =  \frac{1}{\sqrt{n}}\sum_{i=1}^{nt}Z_i = \frac{1}{\sqrt{n}}\left(i-(nt-i)\right)= \frac{1}{\sqrt{n}}\left(2i-nt\right)
+$$
+para$i=0,1,\ldots, nt$. Notemos además que si $nt$  es par entonces $X_{nt}$  puede tomar cualquier valor par entre $-nt$ y $nt$. Del mismo modo, si $nt$ es impar $X_{nt}$ puede tomar cualquier valor impar entre $-nt$ y $nt$.
+
+En cualquier caso:
+
+\begin{align*}
+P\left(W_{t}^{(n)} = \frac{1}{\sqrt{n}} (2i-nt)\right) & = P\left(X_{nt} =(2i-nt) \right)\\
+                                                       &= \binom{nt}{i}\left(\frac{1}{2}\right)^i\left(\frac{1}{2}\right)^{nt-i}
+\end{align*}
+
+
+para $i=0,1,\ldots, nt$. La pregunta ahora es ¿Que pasa cuado $n\rightarrow\infty$?¿Que distribución tendrá la caminata aleatoria en el límite? Para responder esta pregunta consideremos la función generadora de momentos:
+\begin{align*}
+    E\left[e^{uW_{t}^{(n)}}\right] & = E\left[e^{u\frac{1}{\sqrt{n}}X_{nt}}\right]\\
+                                   & = E\left[e^{u\frac{1}{\sqrt{n}}\sum_{i=1}^{nt}Z_i}\right]\\
+\end{align*}
+Como las variables aleatorias $Z_i$ son independientes: 
+\begin{align*}
+    E\left[e^{uW_{t}^{(n)}}\right] & = \prod_{i= 1}^{nt}E\left[e^{u\frac{1}{\sqrt{n}}Z}\right]\\
+\end{align*}
+donde $Z$ comparte distribución con las variables $\{Z_i\}$. Continuamos:
+\begin{align*}
+                                  \phi^{(n)}(u) & = E\left[e^{uW_{t}^{(n)}}\right] \\
+                                   & = \prod_{i= 1}^{nt}E\left[e^{u\frac{1}{\sqrt{n}}Z}\right]\\
+                                   & = \prod_{i=1}^{nt}\left(\frac{1}{2}e^{\frac{1}{\sqrt{n}}u} + \frac{1}{2}e^{-\frac{1}{\sqrt{n}}u}\right) \\
+                                   & = \left(\frac{1}{2}e^{\frac{1}{\sqrt{n}}u} + \frac{1}{2}e^{-\frac{1}{\sqrt{n}}u}\right)^{nt} \\
+\end{align*}
+Por lo tanto buscamos:
+$$
+\lim_{n\rightarrow\infty}\phi^{(n)}(u) = \lim_{n\rightarrow\infty}\left(\frac{1}{2}e^{\frac{1}{\sqrt{n}}u} + \frac{1}{2}e^{-\frac{1}{\sqrt{n}}u}\right)^{nt}
+$$
+o mejor aun:
+$$
+\lim_{n\rightarrow\infty}\log\phi^{(n)}(u) = \lim_{n\rightarrow\infty}nt\log\left(\frac{1}{2}e^{\frac{1}{\sqrt{n}}u} + \frac{1}{2}e^{-\frac{1}{\sqrt{n}}u}\right)
+$$
+haciendo el cambio de variable $x = 1/\sqrt{n}$ buscamos el limite:
+$$
+\lim_{n\rightarrow\infty}\log\phi^{(n)}(u) = t\lim_{x\rightarrow 0}\frac{\log\left(\frac{1}{2}e^{ux} + \frac{1}{2}e^{-ux}\right)}{x^2}
+$$
+Usando L'Hôpital se sigue que:
+$$
+\lim_{n\rightarrow\infty}\log\phi^{(n)}(u) = \frac{t}{2}\lim_{x\rightarrow 0}\frac{\left(\frac{u}{2}e^{ux} - \frac{u}{2}e^{-ux}\right)}{x\left(\frac{1}{2}e^{ux} + \frac{1}{2}e^{-ux}\right)} = \frac{t}{2}\lim_{x\rightarrow 0}\frac{\left(\frac{u}{2}e^{ux} - \frac{u}{2}e^{-ux}\right)}{x}
+$$
+usando de nuevo L'Hôpital:
+$$
+\lim_{n\rightarrow\infty}\log\phi^{(n)}(u)  = \frac{t}{2}\lim_{x\rightarrow 0}\left(\frac{u^2}{2}e^{ux} + \frac{u^2}{2}e^{-ux}\right) = \frac{1}{2}u^2t
+$$
+por lo tanto
+$$
+\lim_{n\rightarrow\infty}\phi^{(n)}(u)  = e^{\frac{1}{2}u^2t}
+$$
+Esta última coincide con la función generadora de momentos de una variable aleatoria Normal con media cero y varianza $t$. Por lo tanto la distribución de $W_t^{(n)}$ converge a la distribución de una normal con media cero y varianza $t$ a medida que $n\rightarrow\infty$.
 \end{document}
 
 \section{Convergencia en probabilidad}
