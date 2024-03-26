@@ -824,6 +824,15 @@ $$
 \lim_{n\rightarrow\infty}\phi^{(n)}(u)  = e^{\frac{1}{2}u^2t}
 $$
 Esta última coincide con la función generadora de momentos de una variable aleatoria Normal con media cero y varianza $t$. Por lo tanto la distribución de $W_t^{(n)}$ converge a la distribución de una normal con media cero y varianza $t$ a medida que $n\rightarrow\infty$.
+\newpage
+\begin{definition}
+    Dado un espacio de probabilidad filtrado $(\Omega,\mathcal{F}, P, \left\{F_t\right\})$ decimos que el proceso estocástico $W(t)$, $t\geq 0$ adaptado a la filtración es un \emph{Movimiento Browniano} si:
+    \begin{enumerate}
+        \item $W(0) = 0$
+        \item Es de incrementos independientes
+        \item $W(t)-W(s)$ se distribuye normal con media cero y varianza $t-s$.
+    \end{enumerate}
+\end{definition}
 \end{document}
 
 \section{Convergencia en probabilidad}
