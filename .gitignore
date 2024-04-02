@@ -8,4 +8,6 @@
 *.xls
 *.xlsx
 *.sqlite
+*.fdb_latexmk
+*.fls
 scratch/
