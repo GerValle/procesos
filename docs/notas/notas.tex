@@ -826,186 +826,68 @@ $$
 Esta última coincide con la función generadora de momentos de una variable aleatoria Normal con media cero y varianza $t$. Por lo tanto la distribución de $W_t^{(n)}$ converge a la distribución de una normal con media cero y varianza $t$ a medida que $n\rightarrow\infty$.
 \newpage
 \begin{definition}
-    Dado un espacio de probabilidad filtrado $(\Omega,\mathcal{F}, P, \left\{F_t\right\})$ decimos que el proceso estocástico $W(t)$, $t\geq 0$ adaptado a la filtración es un \emph{Movimiento Browniano} si:
+    Dado un espacio de probabilidad filtrado $(\Omega,\mathcal{F}, P, \left\{F_t\right\})$ decimos que el proceso estocástico $W(t)$, $t\geq 0$ adaptado a la filtración es un \emph{Movimiento Browniano Estándar} si es de trayactorias continuas casi seguramente y
     \begin{enumerate}
         \item $W(0) = 0$
         \item Es de incrementos independientes
         \item $W(t)-W(s)$ se distribuye normal con media cero y varianza $t-s$.
     \end{enumerate}
 \end{definition}
+
+Contrastemos la propiedades que de inicio nos indica la definición de Movimiento Browniano, con aquellas que probamos para la caminata aleatoria escalada. La caminata aleatoria escalada $\left\{W_t^{(n)}\right\}$ es de incrementos independientes, y su variación cuadrática es $t-s$. Además, la distribución de $W_t^{(n)}$ converge en distribución a una variable aleatoria normal con media cero y varianza $t$ a medida que $n\rightarrow\infty$. Las similitudes son muchas, una mas que no incluimos en la difinición de Movimiento Browniano es que también es una martingala.
+
+\begin{propiedad}
+    El Movimiento Browniano Estándar es una martingala.
+\end{propiedad}
+\begin{proof}
+    Efectivamente para $s\leq t$:
+    \begin{equation*}
+        \begin{split}
+            E\left[W(t)\vert \mathcal{F}_s\right] & = E\left[W(t)-W(s) + W(s)\vert \mathcal{F}_s\right]\\
+                                                  & = E\left[W(t)-W(s)\vert \mathcal{F}_s\right] + E\left[W(s)\vert \mathcal{F}_s\right]\\
+                                                  & = E\left[W(t)-W(s)\right] + W(s)\\
+                                                  & = 0 + W(s)\\
+                                                  & = W(s)
+        \end{split}
+        \end{equation*}    
+\end{proof}
+
+Como veremos mas adelante 
+
+ \section{Variaicón cuadrática}
+
+En general, definimos la \emph{variación cuadrática} de una función $f(t)$ en el intervalo $[0,T]$ como sigue:
+\begin{definition}
+    Sea $f$ una función definida en el intervalo $[0,T]$. Definimos la \emph{variación cuadrática} de $f$ en el intervalo $[0,T]$ como:
+    \begin{equation}
+        \left\langle f, f\right\rangle(T) = \lim_{||\Pi||\rightarrow 0}\sum_{i=1}^{n}\left(f(t_i) - f(t_{i-1})\right)^2
+        \label{varquad:2}
+    \end{equation}
+    donde $||\Pi||$ es la norma de la partición $\Pi = \{0 = t_0, t_1, \ldots, t_n = T\}$ del intervalo $[0,T]$.
+\end{definition}
+
+En general si la función $f$ es continuamente diferenciable, entonces la variación cuadrática de $f$ en el intervalo $[0,T]$ es cero.
+Primero, usando el teorema del valor medio, tenemos que:
+\begin{align*}
+    \sum_{i=1}^{n}\left(f(t_i) - f(t_{i-1})\right)^2  & = \sum_{i=1}^{n}\left(f'(t^*_i)(t_i-t_{i-1})\right)^2\\
+                                                      & \leq ||\Pi||\sum_{i=1}^{n}\left(f'(t^*_i)\right)^2(t_i-t_{i-1})\\
+\end{align*}
+Por otro lado, como $f$ es continuamente diferenciable, entonces $f'$ es continua y por tanto $f'$ es acotada en el intervalo $[0,T]$. Por lo tanto:
+$$
+\lim_{||\Pi||\rightarrow 0}\sum_{i=1}^{n}\left(f'(t^*_i)\right)^2(t_i-t_{i-1}) = \int_0^T\left(f'(t)\right)^2dt < \infty
+$$
+en consecuencia:
+\begin{align*}
+    \left\langle f, f\right\rangle(T) & \leq \lim_{||\Pi||\rightarrow 0}||\Pi||\sum_{i=1}^{n}\left(f'(t^*_i)\right)^2(t_i-t_{i-1})\\
+                                      & = \lim_{||\Pi||\rightarrow 0}||\Pi||\int_0^T\left(f'(t)\right)^2dt\\
+                                      & = 0
+\end{align*}
+Este resultado no se conserva en el caso del Movimiento Browniano y esto se debe al siguiente teorema que se enuncia sin demostración:
+
+\begin{teorema}
+    El Movimiento Browniano Estándar es no diferenciable casi donde sea.
+\end{teorema}
+
+
+
 \end{document}
-
-\section{Convergencia en probabilidad}
-
-\subsection{Limites de conjuntos}
-
-Dada una sucesión de variables aleatorias $\{X_i\}$ definimos los conjuntos:
-
-$$
-A_{i,\varepsilon}=\left\{\left|X_i-X\right\vert\leq\varepsilon\right\}
-$$
-
-para $\varepsilon>0$. Si $\omega \in A_{i,\varepsilon}$ entonces la distancia de $X_i$ a $X$ es menor que $\varepsilon$.  Si para algún $n$:
-
-$$
-\omega \in \bigcap_{i=n}^\infty A_{i,\varepsilon}
-$$
-
-entonces la distancia de $X_i$ a  $X$ es menor que $\varepsilon$ para toda $i\geq n$. Asimismo, si
-
-$$
-\omega \in \bigcup_{n=1}^{\infty}\bigcap_{i=n}^\infty A_{i,\varepsilon} = \liminf_{i\rightarrow \infty}A_{i,\varepsilon}
-$$
-
-$$
-\inf A_i = \bigcap_{i=1}^\infty A_i \quad \text{y} \quad \sup A_i = \bigcup_{i=1}^\infty A_i \quad \text{y}
-$$
-
-
-
-\subsubsection{Limite de conjuntos}
-
-Dada una colección de conjuntos $\{A_i\}$  decimos que:
-
-$$
-\inf_{k\geq n}A_k = \bigcap_{k=n}^\infty A_k \quad \text{y}\quad \sup_{k\geq n}A_k = \bigcup_{k=n}^\infty A_k
-$$
-
-Observemos que la sucesión  $\{\inf_{k\geq n} A_k\}_n$ es una sucesión creciente de conjuntos, mientras que la sucesión $\{\sup_{k\geq n}A_k\}_n$ es una sucesión decreciente.
-
-Definimos además:
-
-$$
-\liminf_{k\rightarrow\infty} A_k = \bigcup_{n=1}^\infty\bigcap_{k=n}^\infty A_k\quad\text{y}\quad\limsup_{k\rightarrow\infty} A_k = \bigcap_{n=1}^\infty\bigcup_{k=n}^\infty A_k
-$$
-
-un resultado inmediato es el siguiente:
-
-$$
-\liminf_{k\rightarrow\infty}A_k \subset \limsup_{k\rightarrow\infty} A_k
-$$
-
-efectivamente; si $x\in \liminf_{k\rightarrow\infty}A_k$ entonces existe $n>0$ tal que $x\in A_k$  para todo $k>n$ por lo tanto $x\in \limsup_{k\rightarrow\infty}A_k$.
-
-Si $\{A_i\}$  es una sucesión decreciente de conjuntos entonces:
-
-$$
-\lim_{i\rightarrow \infty}A_i = \bigcap_{i=1}^\infty A_i
-$$
-
-Como $\{A_i\}$ es decreciente, entonces:
-
-$$
-\bigcup_{k=n}^\infty A_k = A_n
-$$
-
-En consecuencia:
-
-$$
-\limsup_{k\rightarrow \infty} A_k = \bigcap_{n=1}^\infty\bigcup_{k=n}^\infty A_k = \bigcap_{n=1}^\infty A_n\subset \bigcup_{n=1}^\infty\bigcap_{k=n}^\infty A_k = \liminf_{k\rightarrow\infty}A_k
-$$
-
-lo cual demuestra el resultado.
-
-Asimismo, si $\left\{A_i\right\}$ es una sucesión creciente de subconjuntos de $\Omega$ entonces:
-
-$$
-\lim_{i\rightarrow\infty}A_i = \bigcup_{i=1}^\infty A
-$$
-
-Dado que $\{A_i\}$ es creciente:
-
-$$
-\bigcap_{k=n}^\infty A_k= A_n 
-$$
-
-por lo tanto:
-
-$$
-\limsup_{k\rightarrow\infty}A_k = \bigcap_{n=1}^\infty\bigcup_{k=n}^\infty A_k \subset \bigcup_{n= 1}^\infty A_n = \bigcup_{n=1}^\infty\bigcap_{k=n}^\infty A_k = \liminf_{k\rightarrow\infty} A_k
-$$
-
-lo cual demuestra el resultado.
-
-
-
-entonces podemos afirmar que para algún $n$ la distancia de $X_i$ a $X$ es menor que $\varepsilon$ para toda $i\geq n$. 
-
-Dicho de otro modo si $\omega \in \liminf_{i\rightarrow \infty} A_{i,\varepsilon}$, para $\epsilon>0$ entonces existe alguna $n>0$ tal que$\left|X_i-X\right| \leq \epsilon$ para toda $i\geq n$. 
-
-En este sentido decimos que $X_i$ converge en probabilidad a $X$  si para toda $\varepsilon>0$:
-
-$$
-P\left(\liminf_{i\rightarrow \infty}A_{i,\varepsilon}\right) = P\left(\bigcup_{n=1}^\infty\bigcap_{i=n}^\infty A_{i,\varepsilon}\right)= 1
-$$
-
-o bien si para todo $\epsilon > 0$
-
-$$
-P\left(\bigcap_{n=1}^\infty\bigcup_{i=n}^\infty A^c_{i,\varepsilon}\right) = P\left(\limsup_{i\rightarrow\infty}A^c_{i,\varepsilon}\right) = 0
-$$
-
-por otro lado, sabemos que:
-
-$$
-\limsup_{i\rightarrow\infty}A_i = \left\{\omega\in\Omega: \omega\in A_i, \quad i.o\right\}
-$$
-
- además: 
-
-$$
-A^c_{i,\varepsilon}=\left\{\left|X_i-X\right\vert>\varepsilon\right\}
-$$
-
-por lo tanto $X_i$ converge en probabilidad a $X$ si:
-
-$$
-P\left(\left|X_i-X\right| >\varepsilon\quad i.o\right) = 0
-$$
-
-para todo $\varepsilon>0$.
-
-De forma alternativa definimos los conjuntos:
-
-$$
-A_{i,m} = \left\{\vert X_i-X\vert \leq 1/m\right\}
-$$
-
-para alguna $m>0$. Si $\omega \in A_{i,m}$ entonces la distancia de $X_i$ a $X$ es menor que $1/m$. Asimismo, si para alguna  $n>0$
-
-$$
-\omega \in \bigcap_{i=n}^\infty A_{i,m}
-$$
-
-entonces, la distancia de $X_i$ a $X$ será menor que $1/m$ para toda $i\geq n$. De manera similar a como hicimos previamente, si 
-
-$$
-\omega \in \bigcup_{n=1}^\infty\bigcap_{i=n}^\infty A_{i,m} = \liminf_{i\rightarrow \infty} A_{i,m}
-$$
-
-entonces para alguna $n>0$ la distancia de $X_i$ a $X$ será menor a $1/m$ para toda $i\geq n$. 
-
-Finalmente, si 
-
-$$
-\omega \in \bigcap_{m=1}^\infty\bigcup_{n=m}^\infty\bigcap_{i=n}^\infty A_{i,m} = \bigcap_{m=1}^\infty\liminf_{i\rightarrow \infty} A_{i,m} = \lim_{m\rightarrow\infty}\liminf_{i\rightarrow \infty} A_{i,m}
-$$
-
-entonces *para toda $m>0$ existe $n\geq m$ tal que $\vert X_i-X\vert < 1/m$ para toda $i\geq n$.* Por lo tanto si:
-
-$$
-P\left(\bigcap_{m=1}^\infty\bigcup_{n=m}^\infty\bigcap_{i=n}^\infty A_{i,m}\right) =\lim_{m\rightarrow\infty}P\left(\liminf_{i\rightarrow \infty} A_{i,m}\right) = 1
-$$
-
-entonces $X_i$ converge a $X$ en probabilidad. Esto mismo lo reescribimos usando complementos como:
-
-$$
-P\left(\bigcup_{m=1}^\infty\bigcap_{n=m}^\infty\bigcup_{i=n}^\infty A^c_{i,m}\right) =\lim_{m\rightarrow\infty}P\left(\limsup_{i\rightarrow \infty} A^c_{i,m}\right) = 0
-$$
-
-o bien
-
-$$
-\lim_{m\rightarrow\infty}P\left(\vert X_i-X\vert > 1/m \quad i.o\right) = 0
-$$
-
