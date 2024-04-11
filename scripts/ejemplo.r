@@ -21,5 +21,4 @@ ggplot(df, aes(x = x, y = y)) +
 df <- data.frame(x = rnorm(100))
 
 # Create a histogram using ggplot2
-ggplot(df, aes(x = x)) +
-  geom_histogram()
+ggplot(df, aes(x = x)) + geom_histogram()

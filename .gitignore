@@ -11,4 +11,5 @@
 *.fdb_latexmk
 *.fls
 *.out
+*.sqlite
 scratch/
