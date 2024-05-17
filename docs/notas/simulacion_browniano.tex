@@ -12,7 +12,7 @@
 \section{Propiedades adicionales del Movimiento Browniano.}
 Sabemos que la variación cuadrática del Movimiento Browniano:
 \begin{equation}\label{eq:9}
-    \langle w, w\rangle_{[0,T]} = \lim_{\|\Pi\|\rightarrow 0}\sum_{i=0}^{n-1}\left(W_{t_{i+1}}-W_{t_i}\right)^2 = T.
+    \langle W, W\rangle_{[0,T]} = \lim_{\|\Pi\|\rightarrow 0}\sum_{i=0}^{n-1}\left(W_{t_{i+1}}-W_{t_i}\right)^2 = T.
 \end{equation}
 Donde el límite en (\ref{eq:9}) es el límite en $L^2$.
 \begin{ejercicio}
@@ -21,16 +21,17 @@ Donde el límite en (\ref{eq:9}) es el límite en $L^2$.
         \langle T, T\rangle = \lim_{\|\Pi\|\rightarrow 0}\sum_{i=0}^{n-1}\left(t_{i+1}-t_i\right)^2 = 0.
     \end{equation}
 \end{ejercicio}
+\par\noindent 
 Además de (\ref{eq:9}) y (\ref{eq:10}) tenemos la \emph{variación cruzada}:
 
 \begin{equation}\label{eq:11}
-    \langle w, T\rangle = \lim_{\|\Pi\|\rightarrow 0}\sum_{i=0}^{n-1}\left(W_{t_{i+1}}-W_{t_i}\right)\left(t_{i+1}-t_i\right) .
+    \langle W, T\rangle = \lim_{\|\Pi\|\rightarrow 0}\sum_{i=0}^{n-1}\left(W_{t_{i+1}}-W_{t_i}\right)\left(t_{i+1}-t_i\right) .
 \end{equation}
 \begin{ejercicio}
     \par\noindent
     \begin{enumerate}
-        \item Demuestra que el movimiento Browniano, alcanza un máximo y un mínimo en $[0,T]$. En consecuencia $\|w_{t_i}-w_{t_{i-1}}\|$ alcanza también un máximo en $[0,T]$.
-        \item Muestra que $\max \|w_{t_i}-w_{t_{i-1}}\| \rightarrow 0$ cuando $\|\Pi\|\rightarrow 0$.
+        \item Demuestra que el movimiento Browniano, alcanza un máximo y un mínimo en $[0,T]$. En consecuencia $\|W_{t_i}-W_{t_{i-1}}\|$ alcanza también un máximo en $[0,T]$.
+        \item Muestra que $\max \|W_{t_i}-W_{t_{i-1}}\| \rightarrow 0$ cuando $\|\Pi\|\rightarrow 0$.
         \item Demuestra que 
         \begin{equation*}
             \left\vert\sum_{i=0}^{n-1}\left(W_{t_{i+1}}-W_{t_i}\right)\left(t_{i+1}-t_i\right)\right\vert \xrightarrow[\|\Pi\| \to 0]{} 0
@@ -46,13 +47,19 @@ $$
 dwdw=dt, \quad dwdt = 0,  \quad dtdt = 0.
 $$
 
-
 \subsection{Estimación de la volatilidad en un movimiento Browniano Geométrico.}
 La forma general del movimiento Browniano geométrico esta dada por:
 \begin{equation}
     S_t = S_0 \exp\left\{\sigma W_t + (\alpha-\frac{1}{2}\sigma^2)t \right\}
 \end{equation}
 con $\alpha \geq 0$.
+\begin{ejercicio}
+    Demuestra que si $W_t$ es un movimiento Browniano estándar, el proceso:
+    $$
+        S_t = S_0 \exp\left\{\sigma W_t -\frac{1}{2}\sigma^2t\right\} 
+    $$
+    es una martingala.
+\end{ejercicio}
 \begin{ejercicio}
     Supongamos que observamos un movimiento Browniano geométrico en el intervalo: $[t, T]$ y definimos en este intervalo la partición: $\Pi = \left\{t=t_0, t_1\ldots,t_{n-1}, t_n=T \right\}$. Usa lo probado en (\ref{eq:9}), (\ref{eq:10})  y (\ref{eq:12}) para probar que un buen estimador para $\sigma^2$ esta dado por:
 \begin{equation}\label{eq:13}

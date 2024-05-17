@@ -19,6 +19,8 @@
 %\usepackage[framemethod=TikZ]{mdframed}
 \usepackage[framemethod=TikZ]{mdframed}
 
+%\usepackage{xcolor}
+%\renewcommand{emph}[1]{\emph{\textcolor{red}{#1}}}
 
 \newcounter{example}[chapter]
 \newenvironment{example}[1][]{\refstepcounter{example}\par\medskip
@@ -709,20 +711,7 @@ El siguiente teorema es resultado inmediato de esta definición:
         \left\langle X_t, X_t\right\rangle(t-s) = t-s
         \label{varquad:rw}
     \end{equation}
-\end{teorema}
-\begin{proof}
-    Esto es fácil de probar si observamos que 
-    $$
-    \left(X_{i} - X_{i-1}\right)^2  = 1
-    $$
-    para todo $i$. De modo que:
-    \begin{equation*}
-    \begin{split}
-        \left\langle X_t, X_t\right\rangle(t-s) & = \sum_{i=s+1}^t \left(X_{i} - X_{i-1}\right)^2 \\
-                                                & = \sum_{i=s+1}^t 1 \\
-                                                & = t-s
-    \end{split} 
-    \end{equation*}
+\end{teorema}title
 \end{proof}
 Notemos algunos detalles, la definición (\ref{def:varquad:1}) es en realidad una definición preliminar, sirve para nuestro propósito de definir una variación cuadrática para una caminata aleatoria simétrica, sin embargo una definición mas general será necesaria mas adelante. En esta definción en realidad estamos echando mano del hecho de que $(X_i-X_{i-1})^2 = 1$ para toda $i$ lo cual implica que la suma:
 $$
@@ -888,6 +877,18 @@ Este resultado no se conserva en el caso del Movimiento Browniano y esto se debe
     El Movimiento Browniano Estándar es no diferenciable casi donde sea.
 \end{teorema}
 
+\chapter{Cadenas de Markov}
 
+Cuando trabajamos con un proceso estocástico, es natural suponer alguna estructura de correlación entre las variables del proceso. La propiedad de Markov establece cierto tipo de dependencia, que sin complicar demasiádo la dinámica del proceso, permite modelar una gran cantidad de fenómenos. En esta sección presentamos la definición de una cadena de Markov y algunas de sus propiedades.
 
-\end{document}
+\begin{definition}[Propiedad de Markov]
+    Decimos que un proceso $\{X_t\}$ a tiempo discreto, cumple la propiedad de Markov si:
+    $$
+    P(X_{t+1} = x_{t+1}\vert X_t = x_t, X_{t-1} = x_{t-1}, \ldots, X_0 = x_0) = P(X_{t+1} = x_{t+1}\vert X_t = x_t)
+    $$
+\end{definition}
+Un proceso a tiempo discreto, que cumple la propiedad de Markov se conoce como \emph{Cadena de Markov}. Se suele interpretar la propiedad de Markov, diciendo que el futuro es independiente del pasado dado el presente. En otras palabras, la propiedad de Markov establece que la probabilidad de que el proceso tome un valor en el futuro, depende solo del valor presente del proceso y no de los valores pasados.
+
+Mas texto
+
+\end{document}title
